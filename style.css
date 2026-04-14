@@ -9,10 +9,15 @@ body {
 
 /* Header & Nav */
 header {
-    background: #1a2e1a; /* Dark forest green */
-    color: #e8f5e9;
-    padding: 3rem 1rem;
+    /* Replace the URL below with your bird image link */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('images/Ornitolog.jpg') no-repeat center center;
+    background-size: cover;       /* Scales image to cover the header */
+    background-position: center;  /* Centers the image */
+    color: #ffffff;
+    padding: 6rem 1rem;           /* Increased padding to show more image */
     text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Makes text pop against the photo */
 }
 
 nav {
