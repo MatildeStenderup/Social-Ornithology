@@ -354,3 +354,8 @@ body.no-scroll {
 .contribution-table tr:hover {
     background-color: rgba(255, 255, 255, 0.08);
 }
+.tagline {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
