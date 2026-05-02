@@ -76,12 +76,69 @@
 
     <section class="step" id="step1">
         <div class="text-block">
-            <h2>The Sunday Spike</h2>
-            <p>Our analysis of the <b>DOFbasen</b> dataset reveals clear human patterns.
-            Birds might migrate by the stars, but birders migrate by the weekend calendar.</p>
+            <h2>The Key Columns</h2>
+<p>
+    On the right you see our key columns, which represent the four "atoms" of our dataset. <br><br>
+
+    By focusing on these specific data points, we shift the perspective of the analysis from a purely biological inventory of birds to a series of human-timestamped events. We view these columns as social sensors because they record more than just nature; they record the behavior of the community.<br><br>
+    <strong>Observation Date:</strong> Acts as a temporal sensor, capturing the exact moment a human decided to engage with their surroundings and report a sighting.<br>
+
+    <strong>Location Coordinates:</strong> Functions as a spatial sensor, revealing the geographical "hotspots" where social infrastructure and human presence overlap with the wild.<br>
+
+    <strong>Common Name:</strong> Serves as the incentive or "trigger" that motivates the human sensor to act, showing which species drive the most community activity.<br>
+    <strong>Observer ID:</strong> Provides the social identity, identifying the individual or institution—like the bird stations seen in <em>newplot (1).jpg</em>—that is providing the data stream.<br><br>
+
+    Their relationship is emphasized in the plot below, which maps the flow of social energy from the observer to the species and the location. By encoding the "freshness" of the data into the link colors (date), we can distinguish between historical baselines and modern "social swarms."<br><br><br><br>
+</p>
         </div>
         <div class="visual-block">
             <div class="chart-placeholder">
+                <section class="sensor-dashboard">
+    <div class="dashboard-header">
+        <span class="decorator">---</span>
+        <h2>SOCIAL SENSORS:</h2>
+        <span class="decorator">---</span>
+    </div>
+
+    <div class="sensor-grid">
+        <!-- Sensor 1 -->
+        <div class="sensor-card">
+            <div class="sensor-number">01.</div>
+            <div class="sensor-content">
+                <span class="sensor-label">Observation Date</span>
+                <p class="sensor-definition">The Temporal Sensor</p>
+            </div>
+        </div>
+
+        <!-- Sensor 2 -->
+        <div class="sensor-card">
+            <div class="sensor-number">02.</div>
+            <div class="sensor-content">
+                <span class="sensor-label">Location Coordinates</span>
+                <p class="sensor-definition">The Spatial Sensor</p>
+            </div>
+        </div>
+
+        <!-- Sensor 3 -->
+        <div class="sensor-card">
+            <div class="sensor-number">03.</div>
+            <div class="sensor-content">
+                <span class="sensor-label">Common Name</span>
+                <p class="sensor-definition">The Incentive</p>
+            </div>
+        </div>
+
+        <!-- Sensor 4 -->
+        <div class="sensor-card">
+            <div class="sensor-number">04.</div>
+            <div class="sensor-content">
+                <span class="sensor-label">Observer ID</span>
+                <p class="sensor-definition">The Social Identity</p>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-footer"></div>
+</section>
                 <div id="chart1"></div>
             </div>
         </div>

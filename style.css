@@ -13,6 +13,7 @@ body {
     color: #ffffff;
     background-color: #333333;
     overflow-x: hidden;
+    font-size: 14px;
 }
 
 /* Bringing back the "Birding Green" and header styling */
@@ -356,6 +357,106 @@ body.no-scroll {
 }
 .tagline {
     font-style: italic;
-    font-size: 1.2rem;
-    color: #7f8c8d;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+.narrative-text p {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    max-width: 800px;
+}
+
+/* Dashboard Section */
+/* Dashboard Container */
+.sensor-dashboard {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    max-width: 900px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Styling */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.dashboard-header h2 {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.decorator {
+    color: #bdc3c7;
+    font-weight: bold;
+}
+
+/* Grid Layout */
+.sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* Individual Cards */
+.sensor-card {
+    background: #fdfdfd;
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sensor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    border-color: #2d5a27;
+}
+
+.sensor-number {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #2d5a27;
+    margin-bottom: 10px;
+    opacity: 0.6;
+}
+
+.sensor-label {
+    display: block;
+    font-weight: 700;
+    color: #2d5a27;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.sensor-definition {
+    margin: 0;
+    color: #2d5a27;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Footer Line resembling image_a57321.png */
+.dashboard-footer {
+    margin-top: 30px;
+    border-bottom: 2px solid #2d5a27;
+    width: 100%;
+}
+.tagline {
+    font-style: italic;
+    color: #888;
+    margin-bottom: 32px;
 }
