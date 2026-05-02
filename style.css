@@ -216,6 +216,13 @@ h2 {
     left: 50%;
     transform-origin: center center;
 }
+.chart-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* This ensures the whole plot is visible without cropping */
+    padding: 20px;       /* Adds a nice 'margin' inside the white box */
+    display: block;
+}
 
 .chart-placeholder iframe#chart3 {
     border: none;
@@ -370,14 +377,14 @@ body.no-scroll {
 
 /* Dashboard Section */
 /* Dashboard Container */
-.sensor-dashboard {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    max-width: 900px;
-    margin: 20px auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.visual-block .sensor-dashboard {
+    width: 100%;
+    height: 100%;
+    margin: 0; /* Remove the auto margin to fill the block */
+    box-shadow: none; /* Remove shadow since the visual-block already has one */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Header Styling */
