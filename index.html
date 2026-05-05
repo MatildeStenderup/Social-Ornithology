@@ -26,19 +26,19 @@
             <div class="photo-container">
                 <img src="images/person1_a.jpg" class="refresh-photo" alt="Member 1">
             </div>
-            <p class="member-name">Matilde</p>
+            <p class="member-name">Matilde s2455298</p>
         </div>
         <div class="member-slot">
             <div class="photo-container">
                 <img src="images/person2_a.jpg" class="refresh-photo" alt="Member 2">
             </div>
-            <p class="member-name">Amalie</p>
+            <p class="member-name">Amalie s2455299</p>
         </div>
         <div class="member-slot">
             <div class="photo-container">
                 <img src="images/person3_a.jpg" class="refresh-photo" alt="Member 3">
             </div>
-            <p class="member-name">Joakim</p>
+            <p class="member-name">Joakim s2455300</p>
         </div>
     </div>
 </div>
@@ -294,35 +294,41 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. PHOTO RANDOMIZATION LOGIC ---
-    const groupPhotos = [
-        "images/person1_a.jpg",
-        "images/person1_b.jpg",
-        "images/person2_a.jpg",
-        "images/person2_b.jpg",
-        "images/person3_a.jpg",
-        "images/person3_b.jpg",
+    // --- 1. PERSON-SPECIFIC RANDOMIZATION ---
+    const photoMapping = [
+        {
+            name: "Matilde",
+            options: ["images/person1_a.jpg", "images/person1_b.jpg", "images/person1_c.jpg", "images/person1_d.jpg"]
+        },
+        {
+            name: "Amalie",
+            options: ["images/person2_a.jpg", "images/person2_b.jpg", "images/person2_c.jpg", "images/person2_d.jpg"]
+        },
+        {
+            name: "Joakim",
+            options: ["images/person3_a.jpg", "images/person3_b.jpg", "images/person3_c.jpg", "images/person3_d.jpg"]
+        }
     ];
 
     const randomizePhotos = () => {
         const imgElements = document.querySelectorAll('.refresh-photo');
 
-        // Create a copy and shuffle using Fisher-Yates
-        let pool = [...groupPhotos];
-        for (let i = pool.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [pool[i], pool[j]] = [pool[j], pool[i]];
-        }
-
         imgElements.forEach((img, index) => {
-            if (pool[index]) {
-                // Force bypass cache with a unique timestamp
-                img.src = pool[index] + "?v=" + Date.now();
+            // Get the options for this specific slot (0, 1, or 2)
+            const person = photoMapping[index];
+
+            if (person) {
+                // Pick a random index (0 or 1) from that person's options
+                const randomIndex = Math.floor(Math.random() * person.options.length);
+                const chosenPhoto = person.options[randomIndex];
+
+                // Apply source with cache-busting timestamp
+                img.src = chosenPhoto + "?v=" + Date.now();
             }
         });
     };
 
-    // Run randomization immediately
+    // Run immediately on load
     randomizePhotos();
 
     // --- 2. SCROLL & PROGRESS LINE LOGIC ---
@@ -349,7 +355,6 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
         });
     };
 
-    // Initial positioning
     window.addEventListener('load', alignStopsWithTitles);
     window.addEventListener('resize', () => window.requestAnimationFrame(alignStopsWithTitles));
 
@@ -384,7 +389,7 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
         }
     }, { passive: true });
 
-    // --- 3. SOCIAL SENSORS INTERACTIVE HIGHLIGHTS ---
+    // --- 3. SOCIAL SENSORS INTERACTIVE ---
     const sensorCards = document.querySelectorAll('.sensor-card');
     const highlightMap = {
         "01.": "highlight-date",
@@ -415,12 +420,10 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
 
     sensorCards.forEach(card => {
         card.addEventListener('click', () => activateSensor(card));
-        card.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') activateSensor(card);
-        });
+        card.addEventListener('keypress', (e) => { if (e.key === 'Enter') activateSensor(card); });
     });
 
-    // --- 4. FULLSCREEN / EXPANDABLE LOGIC ---
+    // --- 4. FULLSCREEN LOGIC ---
     const toggleFullscreen = (element) => {
         const isOpening = !element.classList.contains('fullscreen');
         document.querySelectorAll('.fullscreen').forEach(el => el.classList.remove('fullscreen'));
