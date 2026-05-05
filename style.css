@@ -607,10 +607,15 @@ body.no-scroll {
     padding-bottom: 30px;
 }
 
-.header-photo-side {
+header-photo-side {
     display: flex;
-    justify-content: end;
-    gap: 30px; /* Space between the individual members */
+    justify-content: space-between; /* Pushes link to left, photos to right */
+    align-items: center;
+    width: 100%;
+    padding: 10px 40px; /* Adjust padding as needed */
+}
+.header-nav {
+    flex: 0 1 auto;
 }
 #href {
     color: var(--bird-green);
