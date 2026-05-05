@@ -292,13 +292,9 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     <footer class="outro">
     </footer>
 
-    <script>document.addEventListener('DOMContentLoaded', () => {
-    const lineFill = document.getElementById('line-fill');
-    const container = document.querySelector('.story-container');
-    const stops = document.querySelectorAll('.stop');
-
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. List of your photo paths
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. PHOTO RANDOMIZATION LOGIC ---
     const groupPhotos = [
         "images/person1_a.jpg",
         "images/person1_b.jpg",
@@ -309,27 +305,32 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const randomizePhotos = () => {
-        // Fisher-Yates Shuffle
-        for (let i = groupPhotos.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [groupPhotos[i], groupPhotos[j]] = [groupPhotos[j], groupPhotos[i]];
-        }
-
         const imgElements = document.querySelectorAll('.refresh-photo');
 
+        // Create a copy and shuffle using Fisher-Yates
+        let pool = [...groupPhotos];
+        for (let i = pool.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
+
         imgElements.forEach((img, index) => {
-            if (groupPhotos[index]) {
-                // The "?t=" part forces the browser to bypass the cache
-                img.src = groupPhotos[index] + "?t=" + new Date().getTime();
+            if (pool[index]) {
+                // Force bypass cache with a unique timestamp
+                img.src = pool[index] + "?v=" + Date.now();
             }
         });
     };
 
+    // Run randomization immediately
     randomizePhotos();
-});
+
+    // --- 2. SCROLL & PROGRESS LINE LOGIC ---
+    const lineFill = document.getElementById('line-fill');
+    const container = document.querySelector('.story-container');
+    const stops = document.querySelectorAll('.stop');
 
     const alignStopsWithTitles = () => {
-        // Exit if we are currently in fullscreen mode to prevent layout shifts
         if (document.body.classList.contains('no-scroll')) return;
 
         const steps = document.querySelectorAll('.step');
@@ -341,28 +342,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const containerRect = container.getBoundingClientRect();
                 const titleRect = title.getBoundingClientRect();
-
-                // Calculate position relative to container
                 const relativeTop = titleRect.top - containerRect.top;
 
-                // Center the stop vertically against the H2 text
                 stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
             }
         });
     };
 
-    // Initial positioning after fonts and images load
+    // Initial positioning
     window.addEventListener('load', alignStopsWithTitles);
+    window.addEventListener('resize', () => window.requestAnimationFrame(alignStopsWithTitles));
 
-    // Use a small timeout for initial alignment as a fallback
-    setTimeout(alignStopsWithTitles, 300);
-
-    // Re-align on resize, but use requestAnimationFrame for performance
-    window.addEventListener('resize', () => {
-        window.requestAnimationFrame(alignStopsWithTitles);
-    });
-
-    // Throttled Scroll Logic
     let isScrolling = false;
     window.addEventListener('scroll', () => {
         if (document.body.classList.contains('no-scroll')) return;
@@ -394,8 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
 
-    // --- 2. Social Sensors: Interactive Highlight & Focus Logic ---
-
+    // --- 3. SOCIAL SENSORS INTERACTIVE HIGHLIGHTS ---
     const sensorCards = document.querySelectorAll('.sensor-card');
     const highlightMap = {
         "01.": "highlight-date",
@@ -425,19 +414,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     sensorCards.forEach(card => {
-        card.setAttribute('tabindex', '0');
         card.addEventListener('click', () => activateSensor(card));
         card.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') activateSensor(card);
         });
     });
 
-    // --- 3. Expandable Image/Iframe Logic (With Scroll Lock) ---
-
+    // --- 4. FULLSCREEN / EXPANDABLE LOGIC ---
     const toggleFullscreen = (element) => {
         const isOpening = !element.classList.contains('fullscreen');
-
-        // Remove fullscreen from any other elements first
         document.querySelectorAll('.fullscreen').forEach(el => el.classList.remove('fullscreen'));
 
         if (isOpening) {
@@ -449,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Images
     document.querySelectorAll('.expandable-image').forEach(img => {
         img.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -457,16 +441,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Iframes (Clicking the container)
-    document.querySelectorAll('.expandable-iframe').forEach(iframe => {
-        const container = iframe.parentElement;
-        container.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleFullscreen(iframe);
-        });
-    });
-
-    // Global click to close fullscreen
     document.addEventListener('click', (e) => {
         if (document.body.classList.contains('no-scroll')) {
             const activeFullscreen = document.querySelector('.fullscreen');
@@ -477,7 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ESC key to close
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             const fullScreenEl = document.querySelector('.fullscreen');
