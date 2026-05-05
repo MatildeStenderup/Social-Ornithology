@@ -525,7 +525,7 @@ body.no-scroll {
 }
 /* Layout container mirroring the spatial balance of the reference image */
 .group-intro-header {
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -609,7 +609,7 @@ body.no-scroll {
 
 .header-photo-side {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     gap: 30px; /* Space between the individual members */
 }
 #href {
@@ -653,3 +653,4 @@ body.no-scroll {
     text-decoration: none; /* Prevents the emoji from being underlined */
     display: inline-block;
 }
+
