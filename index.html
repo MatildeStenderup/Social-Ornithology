@@ -261,68 +261,82 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     <footer class="outro">
     </footer>
 
-    <script>
-       document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Progress Line & Stop Alignment Logic ---
+    <script>document.addEventListener('DOMContentLoaded', () => {
     const lineFill = document.getElementById('line-fill');
     const container = document.querySelector('.story-container');
     const stops = document.querySelectorAll('.stop');
 
-   const alignStopsWithTitles = () => {
-    // Select all steps (step1 through step9)
-    const steps = document.querySelectorAll('.step');
+    // --- 1. Progress Line & Stop Alignment Logic ---
 
-    steps.forEach((stepElement, index) => {
-        // Find the stop corresponding to this step (stop-1, stop-2, etc.)
-        const stop = document.querySelector(`.stop-${index + 1}`);
-        if (stepElement && stop) {
-            const title = stepElement.querySelector('h2');
-            if (!title) return;
+    const alignStopsWithTitles = () => {
+        // Exit if we are currently in fullscreen mode to prevent layout shifts
+        if (document.body.classList.contains('no-scroll')) return;
 
-            // Calculate the position of the title relative to the story-container
-            const containerRect = container.getBoundingClientRect();
-            const titleRect = title.getBoundingClientRect();
+        const steps = document.querySelectorAll('.step');
+        steps.forEach((stepElement, index) => {
+            const stop = document.querySelector(`.stop-${index + 1}`);
+            if (stepElement && stop) {
+                const title = stepElement.querySelector('h2');
+                if (!title) return;
 
-            // This calculates how far down the title is from the top of the container
-            const relativeTop = titleRect.top - containerRect.top;
+                const containerRect = container.getBoundingClientRect();
+                const titleRect = title.getBoundingClientRect();
 
-            // Align the center of the stop with the center of the H2 text
-            stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
-        }
-    });
-};
+                // Calculate position relative to container
+                const relativeTop = titleRect.top - containerRect.top;
 
-
-    if (container) {
-    // Initial alignment
-    setTimeout(alignStopsWithTitles, 100); // Small timeout ensures fonts are loaded
-
-    // Re-align on window resize
-    window.addEventListener('resize', alignStopsWithTitles);
-}
-
-    window.addEventListener('scroll', () => {
-        if (!container || !lineFill) return;
-        const containerOffset = container.offsetTop;
-        const containerHeight = container.offsetHeight;
-        const scrollPosition = window.scrollY - containerOffset + (window.innerHeight / 2);
-        let scrollPercent = (scrollPosition / containerHeight) * 100;
-        scrollPercent = Math.max(0, Math.min(scrollPercent, 100));
-        lineFill.style.height = scrollPercent + "%";
-        stops.forEach(stop => {
-            const stopPercent = (stop.offsetTop / containerHeight) * 100;
-            if (scrollPercent >= stopPercent) {
-                stop.classList.add('active');
-            } else {
-                stop.classList.remove('active');
+                // Center the stop vertically against the H2 text
+                stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
             }
         });
+    };
+
+    // Initial positioning after fonts and images load
+    window.addEventListener('load', alignStopsWithTitles);
+
+    // Use a small timeout for initial alignment as a fallback
+    setTimeout(alignStopsWithTitles, 300);
+
+    // Re-align on resize, but use requestAnimationFrame for performance
+    window.addEventListener('resize', () => {
+        window.requestAnimationFrame(alignStopsWithTitles);
     });
 
-    // --- 2. Social Sensors: Interactive Highlight & Focus Logic ---
-    const sensorCards = document.querySelectorAll('.sensor-card');
+    // Throttled Scroll Logic
+    let isScrolling = false;
+    window.addEventListener('scroll', () => {
+        if (document.body.classList.contains('no-scroll')) return;
 
-    // Mapping card numbers to HTML IDs in the text-block
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                if (!container || !lineFill) return;
+
+                const containerOffset = container.offsetTop;
+                const containerHeight = container.offsetHeight;
+                const scrollPosition = window.scrollY - containerOffset + (window.innerHeight / 2);
+
+                let scrollPercent = (scrollPosition / containerHeight) * 100;
+                scrollPercent = Math.max(0, Math.min(scrollPercent, 100));
+
+                lineFill.style.height = scrollPercent + "%";
+
+                stops.forEach(stop => {
+                    const stopPercent = (stop.offsetTop / containerHeight) * 100;
+                    if (scrollPercent >= stopPercent) {
+                        stop.classList.add('active');
+                    } else {
+                        stop.classList.remove('active');
+                    }
+                });
+                isScrolling = false;
+            });
+            isScrolling = true;
+        }
+    }, { passive: true });
+
+    // --- 2. Social Sensors: Interactive Highlight & Focus Logic ---
+
+    const sensorCards = document.querySelectorAll('.sensor-card');
     const highlightMap = {
         "01.": "highlight-date",
         "02.": "highlight-coords",
@@ -338,55 +352,80 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
         const targetId = highlightMap[num];
         const targetEl = document.getElementById(targetId);
 
-        // Reset all cards and all text highlights
         sensorCards.forEach(c => c.classList.remove('is-active'));
         document.querySelectorAll('.highlight-target').forEach(el => {
             el.classList.remove('highlight-active');
         });
 
-        // Activate current card and corresponding text highlight
         card.classList.add('is-active');
         if (targetEl) {
             targetEl.classList.add('highlight-active');
-            // Scroll the text into view if it's not centered
-            targetEl.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     };
 
     sensorCards.forEach(card => {
-        // Ensure cards can receive focus via keyboard Tab
         card.setAttribute('tabindex', '0');
-
-        // Trigger on Click
         card.addEventListener('click', () => activateSensor(card));
-
-        // Trigger on Focus (for keyboard users)
-        card.addEventListener('focus', () => activateSensor(card));
-
-        // Trigger on Enter key
         card.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') activateSensor(card);
         });
     });
 
-    // --- 3. Expandable Image/Iframe Logic ---
-    const images = document.querySelectorAll('.expandable-image');
-    images.forEach(img => {
+    // --- 3. Expandable Image/Iframe Logic (With Scroll Lock) ---
+
+    const toggleFullscreen = (element) => {
+        const isOpening = !element.classList.contains('fullscreen');
+
+        // Remove fullscreen from any other elements first
+        document.querySelectorAll('.fullscreen').forEach(el => el.classList.remove('fullscreen'));
+
+        if (isOpening) {
+            element.classList.add('fullscreen');
+            document.body.classList.add('no-scroll');
+        } else {
+            element.classList.remove('fullscreen');
+            document.body.classList.remove('no-scroll');
+        }
+    };
+
+    // Images
+    document.querySelectorAll('.expandable-image').forEach(img => {
         img.addEventListener('click', (e) => {
             e.stopPropagation();
-            img.classList.toggle('fullscreen');
+            toggleFullscreen(img);
         });
     });
 
-    const iframes = document.querySelectorAll('.expandable-iframe');
-    iframes.forEach(iframe => {
-        iframe.parentElement.addEventListener('click', () => {
-            iframe.classList.toggle('fullscreen');
-            document.body.classList.toggle('no-scroll');
+    // Iframes (Clicking the container)
+    document.querySelectorAll('.expandable-iframe').forEach(iframe => {
+        const container = iframe.parentElement;
+        container.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFullscreen(iframe);
         });
+    });
+
+    // Global click to close fullscreen
+    document.addEventListener('click', (e) => {
+        if (document.body.classList.contains('no-scroll')) {
+            const activeFullscreen = document.querySelector('.fullscreen');
+            if (activeFullscreen && !activeFullscreen.contains(e.target)) {
+                activeFullscreen.classList.remove('fullscreen');
+                document.body.classList.remove('no-scroll');
+            }
+        }
+    });
+
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const fullScreenEl = document.querySelector('.fullscreen');
+            if (fullScreenEl) {
+                fullScreenEl.classList.remove('fullscreen');
+                document.body.classList.remove('no-scroll');
+            }
+        }
     });
 });
     </script>
