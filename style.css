@@ -548,22 +548,43 @@ body.no-scroll {
 /* Minimalist slots for group portraits */
 /* Container adjustments */
 .member-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Space between photo and text */
     width: 110px;
-    height: 110px;
-    border-radius: 22px;
-    overflow: hidden; /* Clips the image corners */
-    background: #222; /* Fallback color while loading */
 }
 
-.member-slot img {
+.photo-container {
+    width: 110px;
+    height: 110px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px; /* The "Squircle" shape */
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.photo-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This makes the photo fill the square perfectly */
+    object-fit: cover;
     display: block;
 }
-/* Hover effect */
-.member-slot:hover {
-    border-color: var(--bird-green);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+.member-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Hover effect on the whole slot */
+.member-slot:hover .photo-container {
+    border-color: var(--accent-gold);
+    transform: translateY(-5px);
 }

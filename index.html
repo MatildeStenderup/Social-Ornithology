@@ -17,16 +17,32 @@
     <div class="scroll-indicator">↓ Scroll to explore</div>
 </header>
 <div class="group-intro-header">
-    <div class="header-content-side"></div>
-        <p> <a href="https://sunelehmann.com/" target="_blank">Source of Inspiration</a></p>
+    <div class="header-content-side">
+        <!-- Minimalist branding or title area -->
+    </div>
 
     <div class="header-photo-side">
-        <!-- These IDs and classes allow the script to find and swap the images -->
-        <div class="member-slot"><img class="refresh-photo" src="images/person1_a.jpg" alt="Member 1"></div>
-        <div class="member-slot"><img class="refresh-photo" src="images/person2_a.jpg" alt="Member 2"></div>
-        <div class="member-slot"><img class="refresh-photo" src="images/person3_a.jpg" alt="Member 3"></div>
+        <div class="member-slot">
+            <div class="photo-container">
+                <img src="images/person1_a.jpg" class="refresh-photo" alt="Member 1">
+            </div>
+            <p class="member-name">Matilde</p>
+        </div>
+        <div class="member-slot">
+            <div class="photo-container">
+                <img src="images/person2_a.jpg" class="refresh-photo" alt="Member 2">
+            </div>
+            <p class="member-name">Amalie</p>
+        </div>
+        <div class="member-slot">
+            <div class="photo-container">
+                <img src="images/person3_a.jpg" class="refresh-photo" alt="Member 3">
+            </div>
+            <p class="member-name">Joakim</p>
+        </div>
     </div>
 </div>
+<div class="header-divider-bar"></div>
 
 <div class="header-divider-bar"></div>
 <div class="theme-divider"></div>
@@ -281,9 +297,8 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     const container = document.querySelector('.story-container');
     const stops = document.querySelectorAll('.stop');
 
-    // --- 1. Progress Line & Stop Alignment Logic ---
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Add all your available photo filenames here
+    // 1. List of your photo paths
     const groupPhotos = [
         "images/person1_a.jpg",
         "images/person1_b.jpg",
@@ -291,29 +306,28 @@ document.addEventListener('DOMContentLoaded', () => {
         "images/person2_b.jpg",
         "images/person3_a.jpg",
         "images/person3_b.jpg",
-        "images/group_fun.jpg"
     ];
 
     const randomizePhotos = () => {
-        // 2. Shuffle the array using the Fisher-Yates algorithm for true randomness
+        // Fisher-Yates Shuffle
         for (let i = groupPhotos.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [groupPhotos[i], groupPhotos[j]] = [groupPhotos[j], groupPhotos[i]];
         }
 
-        // 3. Select the three img tags
         const imgElements = document.querySelectorAll('.refresh-photo');
 
-        // 4. Assign the first 3 shuffled photos to the 3 slots
         imgElements.forEach((img, index) => {
             if (groupPhotos[index]) {
-                img.src = groupPhotos[index];
+                // The "?t=" part forces the browser to bypass the cache
+                img.src = groupPhotos[index] + "?t=" + new Date().getTime();
             }
         });
     };
 
     randomizePhotos();
 });
+
     const alignStopsWithTitles = () => {
         // Exit if we are currently in fullscreen mode to prevent layout shifts
         if (document.body.classList.contains('no-scroll')) return;
