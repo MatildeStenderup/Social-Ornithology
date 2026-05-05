@@ -139,6 +139,7 @@ h2 {
     transition: height 0.1s ease-out;
 }
 
+/* Remove the specific .stop-1, .stop-2, etc. top percentages */
 .stop {
     position: absolute;
     right: -6px;
@@ -148,12 +149,19 @@ h2 {
     border: 3px solid #ddd;
     border-radius: 50%;
     z-index: 101;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Remove 'all' to prevent top-position lag */
+    transform: translateY(-50%); /* Centers the dot exactly on the title's middle */
 }
 
 .stop-1 { top: calc(18% + 25vh); }
 .stop-2 { top: calc(47% + 25vh); }
 .stop-3 { top: calc(77% + 25vh); }
+.stop-4 { top: calc(107% + 25vh); }
+.stop-5 { top: calc(137% + 25vh); }
+.stop-6 { top: calc(167% + 25vh); }
+.stop-7 { top: calc(197% + 25vh); }
+.stop-8 { top: calc(227% + 25vh); }
+.stop-9 { top: calc(257% + 25vh); }
 
 .stop.active {
     border-color: #ddd;

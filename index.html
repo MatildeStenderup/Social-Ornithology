@@ -22,6 +22,12 @@
         <div class="line-track"></div> <div id="line-fill" class="line-fill"></div> <div class="stop stop-1"></div>
         <div class="stop stop-2"></div>
         <div class="stop stop-3"></div>
+        <div class="stop stop-4"></div>
+        <div class="stop stop-5"></div>
+        <div class="stop stop-6"></div>
+        <div class="stop stop-7"></div>
+        <div class="stop stop-8"></div>
+        <div class="stop stop-9"></div>
     </div>
 
     <div class="mid-page-text">
@@ -262,26 +268,38 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     const container = document.querySelector('.story-container');
     const stops = document.querySelectorAll('.stop');
 
-    const alignStopsWithTitles = () => {
-        const steps = ['#step1', '#step2', '#step3'];
-        steps.forEach((stepId, index) => {
-            const stepElement = document.querySelector(stepId);
-            const stop = document.querySelector(`.stop-${index + 1}`);
-            if (stepElement && stop) {
-                const title = stepElement.querySelector('h2');
-                if (!title) return;
-                const containerRect = container.getBoundingClientRect();
-                const titleRect = title.getBoundingClientRect();
-                const relativeTop = titleRect.top - containerRect.top;
-                stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
-            }
-        });
-    };
+   const alignStopsWithTitles = () => {
+    // Select all steps (step1 through step9)
+    const steps = document.querySelectorAll('.step');
+
+    steps.forEach((stepElement, index) => {
+        // Find the stop corresponding to this step (stop-1, stop-2, etc.)
+        const stop = document.querySelector(`.stop-${index + 1}`);
+        if (stepElement && stop) {
+            const title = stepElement.querySelector('h2');
+            if (!title) return;
+
+            // Calculate the position of the title relative to the story-container
+            const containerRect = container.getBoundingClientRect();
+            const titleRect = title.getBoundingClientRect();
+
+            // This calculates how far down the title is from the top of the container
+            const relativeTop = titleRect.top - containerRect.top;
+
+            // Align the center of the stop with the center of the H2 text
+            stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
+        }
+    });
+};
+
 
     if (container) {
-        alignStopsWithTitles();
-        window.addEventListener('resize', alignStopsWithTitles);
-    }
+    // Initial alignment
+    setTimeout(alignStopsWithTitles, 100); // Small timeout ensures fonts are loaded
+
+    // Re-align on window resize
+    window.addEventListener('resize', alignStopsWithTitles);
+}
 
     window.addEventListener('scroll', () => {
         if (!container || !lineFill) return;
