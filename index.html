@@ -293,8 +293,8 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. PERSON-SPECIFIC RANDOMIZATION ---
+   document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. PERSON-SPECIFIC RANDOMIZATION (FORCED CHANGE) ---
     const photoMapping = [
         {
             name: "Matilde",
@@ -314,21 +314,28 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
         const imgElements = document.querySelectorAll('.refresh-photo');
 
         imgElements.forEach((img, index) => {
-            // Get the options for this specific slot (0, 1, or 2)
             const person = photoMapping[index];
+            if (!person) return;
 
-            if (person) {
-                // Pick a random index (0 or 1) from that person's options
-                const randomIndex = Math.floor(Math.random() * person.options.length);
-                const chosenPhoto = person.options[randomIndex];
+            // Get the last used image index from session storage
+            const storageKey = `last_img_${person.name}`;
+            const lastIndex = parseInt(sessionStorage.getItem(storageKey));
 
-                // Apply source with cache-busting timestamp
-                img.src = chosenPhoto + "?v=" + Date.now();
-            }
+            let newIndex;
+            // Loop until we get an index different from the last one
+            do {
+                newIndex = Math.floor(Math.random() * person.options.length);
+            } while (newIndex === lastIndex && person.options.length > 1);
+
+            // Save the new index for the next reload
+            sessionStorage.setItem(storageKey, newIndex);
+
+            const chosenPhoto = person.options[newIndex];
+            // Apply source with cache-busting timestamp
+            img.src = chosenPhoto + "?v=" + Date.now();
         });
     };
 
-    // Run immediately on load
     randomizePhotos();
 
     // --- 2. SCROLL & PROGRESS LINE LOGIC ---
@@ -345,11 +352,9 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
             if (stepElement && stop) {
                 const title = stepElement.querySelector('h2');
                 if (!title) return;
-
                 const containerRect = container.getBoundingClientRect();
                 const titleRect = title.getBoundingClientRect();
                 const relativeTop = titleRect.top - containerRect.top;
-
                 stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
             }
         });
@@ -361,20 +366,15 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     let isScrolling = false;
     window.addEventListener('scroll', () => {
         if (document.body.classList.contains('no-scroll')) return;
-
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
                 if (!container || !lineFill) return;
-
                 const containerOffset = container.offsetTop;
                 const containerHeight = container.offsetHeight;
                 const scrollPosition = window.scrollY - containerOffset + (window.innerHeight / 2);
-
                 let scrollPercent = (scrollPosition / containerHeight) * 100;
                 scrollPercent = Math.max(0, Math.min(scrollPercent, 100));
-
                 lineFill.style.height = scrollPercent + "%";
-
                 stops.forEach(stop => {
                     const stopPercent = (stop.offsetTop / containerHeight) * 100;
                     if (scrollPercent >= stopPercent) {
@@ -401,16 +401,11 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     const activateSensor = (card) => {
         const numElement = card.querySelector('.sensor-number');
         if (!numElement) return;
-
         const num = numElement.innerText.trim();
         const targetId = highlightMap[num];
         const targetEl = document.getElementById(targetId);
-
         sensorCards.forEach(c => c.classList.remove('is-active'));
-        document.querySelectorAll('.highlight-target').forEach(el => {
-            el.classList.remove('highlight-active');
-        });
-
+        document.querySelectorAll('.highlight-target').forEach(el => el.classList.remove('highlight-active'));
         card.classList.add('is-active');
         if (targetEl) {
             targetEl.classList.add('highlight-active');
@@ -427,7 +422,6 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     const toggleFullscreen = (element) => {
         const isOpening = !element.classList.contains('fullscreen');
         document.querySelectorAll('.fullscreen').forEach(el => el.classList.remove('fullscreen'));
-
         if (isOpening) {
             element.classList.add('fullscreen');
             document.body.classList.add('no-scroll');
