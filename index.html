@@ -75,22 +75,23 @@
     </div>
 
     <section class="step" id="step1">
-        <div class="text-block">
-            <h2>The Key Columns</h2>
-<p>
-    On the right you see our key columns, which represent the four "atoms" of our dataset. <br><br>
+    <div class="text-block">
+    <h2>The Key Columns</h2>
+    <p>
+        On the right you see our key columns, which represent the four "atoms" of our dataset. <br><br>
+        ...
+        <br><br>
 
-    By focusing on these specific data points, we shift the perspective of the analysis from a purely biological inventory of birds to a series of human-timestamped events. We view these columns as social sensors because they record more than just nature; they record the behavior of the community.<br><br>
-    <strong>Observation Date:</strong> Acts as a temporal sensor, capturing the exact moment a human decided to engage with their surroundings and report a sighting.<br>
+        <!-- Wrap these in spans with IDs -->
+        <span id="highlight-date" class="highlight-target"><strong>Observation Date:</strong></span> Acts as a temporal sensor, capturing the exact moment a human decided to engage with their surroundings and report a sighting.<br><br>
 
-    <strong>Location Coordinates:</strong> Functions as a spatial sensor, revealing the geographical "hotspots" where social infrastructure and human presence overlap with the wild.<br>
+        <span id="highlight-coords" class="highlight-target"><strong>Location Coordinates:</strong></span> Functions as a spatial sensor, revealing the geographical "hotspots" where social infrastructure and human presence overlap with the wild.<br><br>
 
-    <strong>Common Name:</strong> Serves as the incentive or "trigger" that motivates the human sensor to act, showing which species drive the most community activity.<br>
-    <strong>Observer ID:</strong> Provides the social identity, identifying the individual or institution—like the bird stations seen in <em>newplot (1).jpg</em>—that is providing the data stream.<br><br>
+        <span id="highlight-name" class="highlight-target"><strong>Common Name:</strong></span> Serves as the incentive or "trigger" that motivates the human sensor to act, showing which species drive the most community activity.<br><br>
 
-    Their relationship is emphasized in the plot below, which maps the flow of social energy from the observer to the species and the location. By encoding the "freshness" of the data into the link colors (date), we can distinguish between historical baselines and modern "social swarms."<br><br><br><br>
-</p>
-        </div>
+        <span id="highlight-id" class="highlight-target"><strong>Observer ID:</strong></span> Provides the social identity, identifying the individual or institution—like the bird stations seen in <em>newplot (1).jpg</em>—that is providing the data stream.<br><br>
+    </p>
+</div>
         <div class="visual-block">
             <div class="chart-placeholder">
                 <section class="sensor-dashboard">
@@ -100,43 +101,35 @@
         <span class="decorator">---</span>
     </div>
 
-    <div class="sensor-grid">
-        <!-- Sensor 1 -->
-        <div class="sensor-card">
-            <div class="sensor-number">01.</div>
-            <div class="sensor-content">
-                <span class="sensor-label">Observation Date</span>
-                <p class="sensor-definition">The Temporal Sensor</p>
-            </div>
-        </div>
-
-        <!-- Sensor 2 -->
-        <div class="sensor-card">
-            <div class="sensor-number">02.</div>
-            <div class="sensor-content">
-                <span class="sensor-label">Location Coordinates</span>
-                <p class="sensor-definition">The Spatial Sensor</p>
-            </div>
-        </div>
-
-        <!-- Sensor 3 -->
-        <div class="sensor-card">
-            <div class="sensor-number">03.</div>
-            <div class="sensor-content">
-                <span class="sensor-label">Common Name</span>
-                <p class="sensor-definition">The Incentive</p>
-            </div>
-        </div>
-
-        <!-- Sensor 4 -->
-        <div class="sensor-card">
-            <div class="sensor-number">04.</div>
-            <div class="sensor-content">
-                <span class="sensor-label">Observer ID</span>
-                <p class="sensor-definition">The Social Identity</p>
-            </div>
+<div class="sensor-grid">
+    <div class="sensor-card" tabindex="0">
+        <div class="sensor-number">01.</div>
+        <div class="sensor-content">
+            <span class="sensor-label">Observation Date</span>
         </div>
     </div>
+
+    <div class="sensor-card" tabindex="0">
+        <div class="sensor-number">02.</div>
+        <div class="sensor-content">
+            <span class="sensor-label">Location Coordinates</span>
+        </div>
+    </div>
+
+    <div class="sensor-card" tabindex="0">
+        <div class="sensor-number">03.</div>
+        <div class="sensor-content">
+            <span class="sensor-label">Common Name</span>
+        </div>
+    </div>
+
+    <div class="sensor-card" tabindex="0">
+        <div class="sensor-number">04.</div>
+        <div class="sensor-content">
+            <span class="sensor-label">Observer ID</span>
+        </div>
+    </div>
+</div>
     <div class="dashboard-footer"></div>
 </section>
                 <div id="chart1"></div>
@@ -239,68 +232,121 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     </footer>
 
     <script>
-        // Keep your existing scroll and alignment logic here
-        document.addEventListener('DOMContentLoaded', () => {
-            const lineFill = document.getElementById('line-fill');
-            const container = document.querySelector('.story-container');
-            const stops = document.querySelectorAll('.stop');
+       document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. Progress Line & Stop Alignment Logic ---
+    const lineFill = document.getElementById('line-fill');
+    const container = document.querySelector('.story-container');
+    const stops = document.querySelectorAll('.stop');
 
-            const alignStopsWithTitles = () => {
-                const steps = ['#step1', '#step2', '#step3'];
-                steps.forEach((stepId, index) => {
-                    const stepElement = document.querySelector(stepId);
-                    const stop = document.querySelector(`.stop-${index + 1}`);
-                    if (stepElement && stop) {
-                        const title = stepElement.querySelector('h2');
-                        if (!title) return;
-                        const containerRect = container.getBoundingClientRect();
-                        const titleRect = title.getBoundingClientRect();
-                        const relativeTop = titleRect.top - containerRect.top;
-                        stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
-                    }
-                });
-            };
-
-            if (container) {
-                alignStopsWithTitles();
-                window.addEventListener('resize', alignStopsWithTitles);
+    const alignStopsWithTitles = () => {
+        const steps = ['#step1', '#step2', '#step3'];
+        steps.forEach((stepId, index) => {
+            const stepElement = document.querySelector(stepId);
+            const stop = document.querySelector(`.stop-${index + 1}`);
+            if (stepElement && stop) {
+                const title = stepElement.querySelector('h2');
+                if (!title) return;
+                const containerRect = container.getBoundingClientRect();
+                const titleRect = title.getBoundingClientRect();
+                const relativeTop = titleRect.top - containerRect.top;
+                stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
             }
-
-            window.addEventListener('scroll', () => {
-                if (!container || !lineFill) return;
-                const containerOffset = container.offsetTop;
-                const containerHeight = container.offsetHeight;
-                const scrollPosition = window.scrollY - containerOffset + (window.innerHeight / 2);
-                let scrollPercent = (scrollPosition / containerHeight) * 100;
-                scrollPercent = Math.max(0, Math.min(scrollPercent, 100));
-                lineFill.style.height = scrollPercent + "%";
-                stops.forEach(stop => {
-                    const stopPercent = (stop.offsetTop / containerHeight) * 100;
-                    if (scrollPercent >= stopPercent) {
-                        stop.classList.add('active');
-                    } else {
-                        stop.classList.remove('active');
-                    }
-                });
-            });
-
-            // Expandable Image/Iframe logic
-            const images = document.querySelectorAll('.expandable-image');
-            images.forEach(img => {
-                img.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    img.classList.toggle('fullscreen');
-                });
-            });
-
-            const iframes = document.querySelectorAll('.expandable-iframe');
-            iframes.forEach(iframe => {
-                iframe.parentElement.addEventListener('click', () => {
-                    iframe.classList.toggle('fullscreen');
-                    document.body.classList.toggle('no-scroll');
-                });
-            });
         });
+    };
+
+    if (container) {
+        alignStopsWithTitles();
+        window.addEventListener('resize', alignStopsWithTitles);
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!container || !lineFill) return;
+        const containerOffset = container.offsetTop;
+        const containerHeight = container.offsetHeight;
+        const scrollPosition = window.scrollY - containerOffset + (window.innerHeight / 2);
+        let scrollPercent = (scrollPosition / containerHeight) * 100;
+        scrollPercent = Math.max(0, Math.min(scrollPercent, 100));
+        lineFill.style.height = scrollPercent + "%";
+        stops.forEach(stop => {
+            const stopPercent = (stop.offsetTop / containerHeight) * 100;
+            if (scrollPercent >= stopPercent) {
+                stop.classList.add('active');
+            } else {
+                stop.classList.remove('active');
+            }
+        });
+    });
+
+    // --- 2. Social Sensors: Interactive Highlight & Focus Logic ---
+    const sensorCards = document.querySelectorAll('.sensor-card');
+
+    // Mapping card numbers to HTML IDs in the text-block
+    const highlightMap = {
+        "01.": "highlight-date",
+        "02.": "highlight-coords",
+        "03.": "highlight-name",
+        "04.": "highlight-id"
+    };
+
+    const activateSensor = (card) => {
+        const numElement = card.querySelector('.sensor-number');
+        if (!numElement) return;
+
+        const num = numElement.innerText.trim();
+        const targetId = highlightMap[num];
+        const targetEl = document.getElementById(targetId);
+
+        // Reset all cards and all text highlights
+        sensorCards.forEach(c => c.classList.remove('is-active'));
+        document.querySelectorAll('.highlight-target').forEach(el => {
+            el.classList.remove('highlight-active');
+        });
+
+        // Activate current card and corresponding text highlight
+        card.classList.add('is-active');
+        if (targetEl) {
+            targetEl.classList.add('highlight-active');
+            // Scroll the text into view if it's not centered
+            targetEl.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    };
+
+    sensorCards.forEach(card => {
+        // Ensure cards can receive focus via keyboard Tab
+        card.setAttribute('tabindex', '0');
+
+        // Trigger on Click
+        card.addEventListener('click', () => activateSensor(card));
+
+        // Trigger on Focus (for keyboard users)
+        card.addEventListener('focus', () => activateSensor(card));
+
+        // Trigger on Enter key
+        card.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') activateSensor(card);
+        });
+    });
+
+    // --- 3. Expandable Image/Iframe Logic ---
+    const images = document.querySelectorAll('.expandable-image');
+    images.forEach(img => {
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            img.classList.toggle('fullscreen');
+        });
+    });
+
+    const iframes = document.querySelectorAll('.expandable-iframe');
+    iframes.forEach(iframe => {
+        iframe.parentElement.addEventListener('click', () => {
+            iframe.classList.toggle('fullscreen');
+            document.body.classList.toggle('no-scroll');
+        });
+    });
+});
     </script>
 </body>
 </html>

@@ -403,6 +403,10 @@ body.no-scroll {
     font-weight: bold;
 }
 
+/* =========================================
+   SOCIAL SENSOR DASHBOARD
+   ========================================= */
+
 /* Grid Layout */
 .sensor-grid {
     display: grid;
@@ -418,19 +422,31 @@ body.no-scroll {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-.sensor-card:hover {
+/* Hover, Focus, and Active States */
+.sensor-card:hover,
+.sensor-card:focus,
+.sensor-card.is-active {
     transform: translateY(-5px);
+    border-color: var(--bird-green);
+    background-color: rgba(14, 122, 30, 0.05); /* Very subtle green tint */
     box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    border-color: #2d5a27;
+    outline: none;
 }
 
+.sensor-card:focus {
+    box-shadow: 0 0 0 3px rgba(45, 251, 76, 0.3); /* Accessible focus ring */
+}
+
+/* Card Content */
 .sensor-number {
     font-size: 0.8rem;
     font-weight: 800;
-    color: #2d5a27;
+    color: var(--bird-green);
     margin-bottom: 10px;
     opacity: 0.6;
 }
@@ -438,26 +454,48 @@ body.no-scroll {
 .sensor-label {
     display: block;
     font-weight: 700;
-    color: #2d5a27;
+    color: var(--bird-green);
     font-size: 1rem;
-    margin-bottom: 5px;
 }
 
-.sensor-definition {
-    margin: 0;
-    color: #2d5a27;
-    font-size: 0.9rem;
-    font-style: italic;
+/* Hide internal descriptive text as requested */
+.sensor-definition,
+.sensor-details {
+    display: none;
 }
 
-/* Footer Line resembling image_a57321.png */
+/* Dashboard Decoration */
 .dashboard-footer {
     margin-top: 30px;
-    border-bottom: 2px solid #2d5a27;
+    border-bottom: 2px solid var(--bird-green);
     width: 100%;
 }
+
 .tagline {
     font-style: italic;
     color: #888;
     margin-bottom: 32px;
+}
+
+/* =========================================
+   NARRATIVE TEXT HIGHLIGHTING (Left Side)
+   ========================================= */
+
+.highlight-target {
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+    display: inline-block;
+}
+
+/* Active highlight state triggered by Sensor interaction */
+.highlight-active {
+    background-color: var(--bird-green);
+    color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(45, 251, 76, 0.4);
+    transform: scale(1.05);
+}
+
+.highlight-active strong {
+    color: #ffffff !important;
 }
