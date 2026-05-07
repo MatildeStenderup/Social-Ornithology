@@ -616,6 +616,7 @@ header-photo-side {
 }
 .header-nav {
     flex: 0 1 auto;
+    align-items: center;
 }
 #href {
     color: var(--bird-green);
@@ -641,7 +642,7 @@ header-photo-side {
     text-decoration-thickness: 2px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    display: flex;
+
     align-items: baseline;
     gap: 8px;
     transition: all 0.3s ease;
@@ -657,5 +658,10 @@ header-photo-side {
     font-size: 5rem;
     text-decoration: none; /* Prevents the emoji from being underlined */
     display: inline-block;
+}
+.notebook {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
