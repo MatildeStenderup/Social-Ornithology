@@ -689,3 +689,51 @@ body.no-scroll {
     text-align: right;
     margin-top: 15px;
 }
+/* =========================================
+   6. SINGLE COLUMN OVERRIDES (Steps 6-9)
+   ========================================= */
+
+/* Forces the step to stack vertically instead of side-by-side */
+.single-column-step {
+    flex-direction: column !important;
+    align-items: center !important;
+    min-height: auto !important;
+    margin-bottom: 100px;
+    padding-bottom: 40px;
+}
+
+/* Centers and widens the text for better readability in 1-column */
+.single-column-step .text-block {
+    flex: 0 0 100% !important;
+    max-width: 850px;
+    padding-top: 60px !important;
+    margin-bottom: 40px;
+    text-align: left; /* Keeps text professional, change to center if preferred */
+}
+
+/* Disables the 'sticky' behavior so images flow with the text */
+.single-column-step .visual-block {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: 1000px; /* Limits how wide charts get on massive monitors */
+    height: auto !important;
+    min-height: 500px;
+    position: relative !important;
+    top: 0 !important;
+    margin: 0 auto;
+}
+
+/* Adjusts images inside the single column to scale naturally */
+.single-column-step .visual-block img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    padding: 10px;
+}
+
+/* Adjusts the vertical progress line behavior for single column */
+@media (min-width: 769px) {
+    .single-column-step:nth-of-type(even) {
+        flex-direction: column !important; /* Prevents the 'reverse' row logic */
+    }
+}
