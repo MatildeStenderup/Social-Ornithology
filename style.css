@@ -779,11 +779,7 @@ body.no-scroll {
     transition: background 0.2s ease, color 0.2s ease;
 }
 
-.bird-list li:hover {
-    background: #f1f8f1;
-    color: var(--bird-green);
-    cursor: default;
-}
+
 
 .bird-list li:last-child {
     border-bottom: none;
@@ -836,4 +832,50 @@ body.no-scroll {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+/* Special styling for the first item with the image */
+/* Thumbnail style for the first item */
+/* Thumbnail style: Right-aligned and line-height matched */
+.featured-bird {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between; /* Pushes text left, image right */
+    align-items: center;
+    padding: 12px 20px !important; /* Matches your other list items */
+    background: #f9f9f9;
+}
+
+.featured-bird .bird-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--bird-green);
+}
+
+.featured-bird img {
+    /* Sets the image height to match the text's line-height */
+    height: 1.2rem;
+    width: auto; /* Maintains aspect ratio */
+    border-radius: 2px;
+    object-fit: contain;
+    margin-left: 10px;
+    filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.1));
+}
+
+/* Hover effect consistency */
+.featured-bird:hover {
+    background: #f1f8f1;
+    cursor: default;
+}
+
+/* Ensure the scroll container remains locked */
+.fixed-scroll-box {
+    height: 500px !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden !important;
+}
+
+.bird-scroll-container {
+    flex: 1;
+    overflow-y: auto !important;
 }
