@@ -802,3 +802,38 @@ body.no-scroll {
     background: var(--bird-green);
     border-radius: 4px;
 }
+/* 1. Force the Visual Block to a static, fixed size */
+.step.single-column-step .visual-block.fixed-scroll-box {
+    height: 500px !important;    /* Total height of the widget */
+    max-height: 500px !important;
+    position: relative !important; /* Disables sticky for this section */
+    top: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;  /* CRITICAL: clips the list */
+}
+
+/* 2. Style the header to stay at the top */
+.bird-list-header {
+    flex: 0 0 auto;
+    background: var(--bird-green);
+    color: white;
+    padding: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* 3. Make only this part scrollable */
+.bird-scroll-container {
+    flex: 1 1 auto;      /* Fills the rest of the 500px */
+    overflow-y: auto !important;
+    background: #fdfdfd;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll for mobile */
+}
+
+/* 4. Ensure the list doesn't force the container to grow */
+.bird-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
