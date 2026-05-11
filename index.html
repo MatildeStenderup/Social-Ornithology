@@ -380,7 +380,7 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
         </div>
         <div class="visual-block">
             <div class="chart-placeholder">
-<img >
+
 </div>
         </div>
     </section>
@@ -396,7 +396,7 @@ If you look for the Red-footed Falcon in May, notice how certain coordinates glo
         </div>
         <div class="visual-block">
             <div class="chart-placeholder">
-<img >
+
 </div>
         </div>
     </section>
@@ -406,8 +406,11 @@ If you look for the Red-footed Falcon in May, notice how certain coordinates glo
     <footer class="outro">
     </footer>
 
-    <script>document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. OPTIMIZED PERSON-SPECIFIC RANDOMIZATION ---
+    <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- 1. PERSON RANDOMIZATION ---
     const photoMapping = [
         {
             name: "Matilde",
@@ -424,161 +427,117 @@ If you look for the Red-footed Falcon in May, notice how certain coordinates glo
     ];
 
     const randomizePhotos = () => {
-    const imgElements = document.querySelectorAll('.refresh-photo');
-
-    imgElements.forEach((img, index) => {
-        const person = photoMapping[index];
-        if (!person) return;
-
-        const storageKey = `last_img_${person.name}`;
-        let savedIndex = sessionStorage.getItem(storageKey);
-
-        // If it doesn't exist, pick one and save it
-        if (savedIndex === null) {
-            savedIndex = Math.floor(Math.random() * person.options.length);
-            sessionStorage.setItem(storageKey, savedIndex);
-        }
-
-        const chosenPhoto = person.options[savedIndex];
-
-        // Update the source
-        img.src = chosenPhoto;
-
-        // Add a class to fade it in smoothly rather than popping in
-        img.style.opacity = "1";
-    });
-};
-
+        const imgElements = document.querySelectorAll('.refresh-photo');
+        imgElements.forEach((img, index) => {
+            const person = photoMapping[index];
+            if (!person) return;
+            const storageKey = `last_img_${person.name}`;
+            let savedIndex = sessionStorage.getItem(storageKey);
+            if (savedIndex === null) {
+                savedIndex = Math.floor(Math.random() * person.options.length);
+                sessionStorage.setItem(storageKey, savedIndex);
+            }
+            img.src = person.options[savedIndex];
+            img.style.opacity = "1";
+        });
+    };
     randomizePhotos();
 
-    // --- 2. SCROLL & PROGRESS LINE LOGIC (Optimized with ResizeObserver) ---
+    // --- 2. BIRD EXPLORER LOGIC ---
+    const birdItems = document.querySelectorAll('#bird-selector-list li');
+    const displayImg = document.getElementById('main-bird-image');
+    const caption = document.getElementById('bird-caption');
+
+    const birdImages = {
+        "Grey Plover": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png/500px-Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png",
+        "Velvet Scoter": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Velvet_Scoter%2C_Eyebrook_Reservoir%2C_Leics.jpg/500px-Velvet_Scoter%2C_Eyebrook_Reservoir%2C_Leics.jpg",
+        "Common Pochard": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Common_Pochard_2025_11_15_04.jpg/500px-Common_Pochard_2025_11_15_04.jpg",
+        "Black-legged Kittiwake": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Rissa_tridactyla_%28Vard%C3%B8%2C_2012%29.jpg/500px-Rissa_tridactyla_%28Vard%C3%B8%2C_2012%29.jpg",
+        "Red-footed Falcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Falco_vespertinus_2_%28Martin_Mecnarowski%29.jpg/500px-Falco_vespertinus_2_%28Martin_Mecnarowski%29.jpg",
+        "Long-tailed Duck": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Long-tailed-duck.jpg/500px-Long-tailed-duck.jpg",
+        "European Turtle Dove": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Turtle_dove_%28Streptopelia_turtur_turtur%29_Hungary.jpg/500px-Turtle_dove_%28Streptopelia_turtur_turtur%29_Hungary.jpg",
+        "Horned Grebe": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Podiceps_auritus_%2813909539717%29.jpg/500px-Podiceps_auritus_%2813909539717%29.jpg",
+        "Curlew Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg/500px-Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
+        "Northern Bald Ibis": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Northern_Bald_Ibis_Geronticus_eremita_%288470600428%29.jpg/500px-Northern_Bald_Ibis_Geronticus_eremita_%288470600428%29.jpg",
+        "Reeve's Pheasant": "https://upload.wikimedia.org/wikipedia/commons/0/08/BxZ_Syrmaticus_reevesii_00.jpg",
+        "Red-breasted Goose": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Red-breasted_goose_arp.jpg/500px-Red-breasted_goose_arp.jpg",
+        "Broad-billed Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Broad_billed_sandpiper_by_Sreedev_Puthur.jpg/500px-Broad_billed_sandpiper_by_Sreedev_Puthur.jpg",
+        "Atlantic Puffin": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Puffin_%28Fratercula_arctica%29.jpg/500px-Puffin_%28Fratercula_arctica%29.jpg",
+        "Snowy Owl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/SnowyOwlAmericanBlackDuck.jpg/500px-SnowyOwlAmericanBlackDuck.jpg",
+        "White-headed Duck": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Witkopeend_-_white-headed_duck_-_Oxyura_leucocephala_3.tif/lossy-page1-500px-Witkopeend_-_white-headed_duck_-_Oxyura_leucocephala_3.tif.jpg",
+        "Lesser Yellowlegs": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Lesser_yellowlegs_%2832690%29.jpg/500px-Lesser_yellowlegs_%2832690%29.jpg",
+        "Steppe Eagle": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Steppe_Eagle_Portrait.jpg/500px-Steppe_Eagle_Portrait.jpg",
+        "Swan Goose": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Anser_cygnoides%2C_Ozero_Stepnoye%2C_Ivolginskiy%2C_Buryatia_Republic%2C_Russia_1_%28cropped%29.jpg",
+        "Buff-breasted Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Tryngites_subruficollis_-USA-8.jpg/500px-Tryngites_subruficollis_-USA-8.jpg",
+        "Eastern Imperial Eagle": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Eastern_Imperial_Eagle_cr.jpg/500px-Eastern_Imperial_Eagle_cr.jpg",
+        "Aquatic Warbler": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Aquatic_Warbler_%28Acrocephalus_paludicola%29_%2814363772751%29.jpg/500px-Aquatic_Warbler_%28Acrocephalus_paludicola%29_%2814363772751%29.jpg",
+        "Lesser White-fronted Goose": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Anser_erythropus.jpg/500px-Anser_erythropus.jpg"
+    };
+
+    birdItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const birdName = item.getAttribute('data-bird');
+            birdItems.forEach(i => i.classList.remove('active-bird'));
+            item.classList.add('active-bird');
+
+            displayImg.style.opacity = 0;
+            setTimeout(() => {
+                if (birdImages[birdName]) {
+    displayImg.src = birdImages[birdName];
+} else {
+    console.log("Missing image for:", birdName);
+    displayImg.src = "https://via.placeholder.com/500x500?text=No+Image+Available";
+}
+                caption.innerText = birdName;
+                displayImg.style.opacity = 1;
+            }, 200);
+        });
+    });
+
+    // --- 3. SCROLL & PROGRESS LINE LOGIC ---
     const lineFill = document.getElementById('line-fill');
     const container = document.querySelector('.story-container');
     const stops = document.querySelectorAll('.stop');
 
     const alignStopsWithTitles = () => {
         if (document.body.classList.contains('no-scroll') || !container) return;
-
         const steps = document.querySelectorAll('.step');
         const containerRect = container.getBoundingClientRect();
 
         steps.forEach((stepElement, index) => {
             const stop = document.querySelector(`.stop-${index + 1}`);
             const title = stepElement.querySelector('h2');
-
             if (stop && title) {
                 const titleRect = title.getBoundingClientRect();
                 const relativeTop = titleRect.top - containerRect.top;
-                // Use transform for smoother positioning
                 stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
             }
         });
     };
-document.addEventListener('DOMContentLoaded', () => {
-    const birdItems = document.querySelectorAll('#bird-selector-list li');
-    const displayImg = document.getElementById('main-bird-image');
-    const caption = document.getElementById('bird-caption');
 
-    // Updated Mapping with your specific Grey Plover link
-    const birdImages = {
-    "Grey Plover": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png/500px-Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png",
-    "Velvet Scoter": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Velvet_Scoter%2C_Eyebrook_Reservoir%2C_Leics.jpg/500px-Velvet_Scoter%2C_Eyebrook_Reservoir%2C_Leics.jpg",
-    "Common Pochard": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Common_Pochard_2025_11_15_04.jpg/500px-Common_Pochard_2025_11_15_04.jpg",
-    "Black-legged Kittiwake": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Black-legged_Kittiwake.jpg/500px-Black-legged_Kittiwake.jpg",
-    "Red-footed Falcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Red-footed_Falcon.jpg/500px-Red-footed_Falcon.jpg",
-    "Long-tailed Duck": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Long-tailed_Duck.jpg/500px-Long-tailed_Duck.jpg",
-    "European Turtle Dove": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/European_Turtle_Dove.jpg/500px-European_Turtle_Dove.jpg",
-    "Horned Grebe": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Horned_Grebe.jpg/500px-Horned_Grebe.jpg",
-    "Curlew Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg/500px-Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
-    "Northern Bald Ibis": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Northern_Bald_Ibis_Geronticus_eremita_%288470600428%29.jpg/500px-Northern_Bald_Ibis_Geronticus_eremita_%288470600428%29.jpg",
-    "Reeve's Pheasant": "https://upload.wikimedia.org/wikipedia/commons/0/08/BxZ_Syrmaticus_reevesii_00.jpg",
-    "Red-breasted Goose": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Red-breasted_goose_arp.jpg/500px-Red-breasted_goose_arp.jpg",
-    "Broad-billed Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Broad-billed_Sandpiper_%28Calidris_falcinellus%29_%2844855173205%29.jpg/500px-Broad-billed_Sandpiper_%28Calidris_falcinellus%29_%2844855173205%29.jpg",
-    "Atlantic Puffin": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Atlantic_Puffin.jpg/500px-Atlantic_Puffin.jpg",
-    "Snowy Owl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Snowy_Owl.jpg/500px-Snowy_Owl.jpg",
-    "White-headed Duck": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/White-headed_Duck.jpg/500px-White-headed_Duck.jpg",
-    "Lesser Yellowlegs": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Lesser_Yellowlegs.jpg/500px-Lesser_Yellowlegs.jpg",
-    "Steppe Eagle": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Steppe_Eagle_Portrait.jpg/500px-Steppe_Eagle_Portrait.jpg",
-    "Swan Goose": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Anser_cygnoides%2C_Ozero_Stepnoye%2C_Ivolginskiy%2C_Buryatia_Republic%2C_Russia_1_%28cropped%29.jpg",
-    "Buff-breasted Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Tryngites_subruficollis_-USA-8.jpg/500px-Tryngites_subruficollis_-USA-8.jpg",
-    "Eastern Imperial Eagle": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Eastern_Imperial_Eagle_cr.jpg/500px-Eastern_Imperial_Eagle_cr.jpg",
-    "Aquatic Warbler": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Aquatic_Warbler_%28Acrocephalus_paludicola%29_%2814363772751%29.jpg/500px-Aquatic_Warbler_%28Acrocephalus_paludicola%29_%2814363772751%29.jpg",
-    "Lesser White-fronted Goose": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Lesser_White-fronted_Goose.jpg/500px-Lesser_White-fronted_Goose.jpg",
-    "Military Macaw": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Military_Macaw.jpg/500px-Military_Macaw.jpg",
-    "White-rumped Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/White-rumped_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg/500px-White-rumped_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
-    "Rustic Bunting": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Rustic_Bunting.jpg/500px-Rustic_Bunting.jpg",
-    "Red-crowned Crane": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Red-crowned_Crane.jpg/500px-Red-crowned_Crane.jpg",
-    "Steller's Eider": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steller's_Eider.jpg/500px-Steller's_Eider.jpg",
-    "Audouin's Gull": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Audouin's_Gull.jpg/500px-Audouin's_Gull.jpg",
-    "Sharp-tailed Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Sharp-tailed_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg/500px-Sharp-tailed_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
-    "Saker Falcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Saker_Falcon.jpg/500px-Saker_Falcon.jpg",
-    "Sociable Lapwing": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Sociable_Lapwing.jpg/500px-Sociable_Lapwing.jpg",
-    "Egyptian Vulture": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Egyptian_Vulture.jpg/500px-Egyptian_Vulture.jpg",
-    "Steller's Sea Eagle": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steller's_Sea_Eagle.jpg/500px-Steller's_Sea_Eagle.jpg",
-    "Yellow-breasted Bunting": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Yellow-breasted_Bunting.jpg/500px-Yellow-breasted_Bunting.jpg",
-    "Rüppell's Vulture": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Rüppell's_Vulture.jpg/500px-Rüppell's_Vulture.jpg"
-};
-
-    birdItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const birdName = item.getAttribute('data-bird');
-
-            // 1. Update Active Class UI
-            birdItems.forEach(i => i.classList.remove('active-bird'));
-            item.classList.add('active-bird');
-
-            // 2. Perform Image Swap with Fade Effect
-            displayImg.style.opacity = 0;
-
-            setTimeout(() => {
-                // Check if we have an image for this bird, otherwise use a placeholder
-                if (birdImages[birdName]) {
-                    displayImg.src = birdImages[birdName];
-                } else {
-                    // Optional: default image if name isn't in birdImages
-                    displayImg.src = "https://via.placeholder.com/500x500?text=No+Image+Available";
-                }
-
-                caption.innerText = birdName;
-                displayImg.style.opacity = 1;
-            }, 200);
-        });
-    });
-});
-
-    // Use ResizeObserver instead of window resize for better performance
     if (window.ResizeObserver) {
         const ro = new ResizeObserver(() => alignStopsWithTitles());
         ro.observe(document.body);
     }
-
     window.addEventListener('load', alignStopsWithTitles);
 
     let isScrolling = false;
     window.addEventListener('scroll', () => {
         if (document.body.classList.contains('no-scroll') || !container || !lineFill) return;
-
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
                 const containerOffset = container.offsetTop;
                 const containerHeight = container.offsetHeight;
-                // Calculate based on the center of the viewport
                 const scrollPosition = window.scrollY - containerOffset + (window.innerHeight / 2);
                 let scrollPercent = (scrollPosition / containerHeight) * 100;
-
                 scrollPercent = Math.max(0, Math.min(scrollPercent, 100));
                 lineFill.style.height = scrollPercent + "%";
 
                 stops.forEach(stop => {
-                    // Check if the fill has reached the stop's position
                     const stopPos = parseFloat(stop.style.top);
                     const stopPercent = (stopPos / containerHeight) * 100;
-
-                    if (scrollPercent >= stopPercent) {
-                        stop.classList.add('active');
-                    } else {
-                        stop.classList.remove('active');
-                    }
+                    if (scrollPercent >= stopPercent) stop.classList.add('active');
+                    else stop.classList.remove('active');
                 });
                 isScrolling = false;
             });
@@ -586,22 +545,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
 
-    // --- 3. SOCIAL SENSORS INTERACTIVE ---
+    // --- 4. SOCIAL SENSORS INTERACTIVE ---
     const sensorCards = document.querySelectorAll('.sensor-card');
-    const highlightMap = {
-        "01.": "highlight-date",
-        "02.": "highlight-coords",
-        "03.": "highlight-name",
-        "04.": "highlight-id"
-    };
+    const highlightMap = { "01.": "highlight-date", "02.": "highlight-coords", "03.": "highlight-name", "04.": "highlight-id" };
 
     sensorCards.forEach(card => {
-        const handleClick = () => {
+        card.addEventListener('click', () => {
             const numElement = card.querySelector('.sensor-number');
             if (!numElement) return;
-
-            const num = numElement.innerText.trim();
-            const targetId = highlightMap[num];
+            const targetId = highlightMap[numElement.innerText.trim()];
             const targetEl = document.getElementById(targetId);
 
             sensorCards.forEach(c => c.classList.remove('is-active'));
@@ -612,19 +564,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 targetEl.classList.add('highlight-active');
                 targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-        };
-
-        card.addEventListener('click', handleClick);
-        card.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleClick(); });
+        });
     });
 
-    // --- 4. FULLSCREEN LOGIC ---
+    // --- 5. FULLSCREEN LOGIC ---
     const toggleFullscreen = (element) => {
         const isOpening = !element.classList.contains('fullscreen');
-
-        // Close any existing fullscreens
         document.querySelectorAll('.fullscreen').forEach(el => el.classList.remove('fullscreen'));
-
         if (isOpening) {
             element.classList.add('fullscreen');
             document.body.classList.add('no-scroll');
@@ -634,13 +580,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelectorAll('.expandable-image').forEach(img => {
-        img.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleFullscreen(img);
-        });
+        img.addEventListener('click', (e) => { e.stopPropagation(); toggleFullscreen(img); });
     });
 
-    // Global click to close fullscreen
     document.addEventListener('click', (e) => {
         const activeFullscreen = document.querySelector('.fullscreen');
         if (activeFullscreen && !activeFullscreen.contains(e.target)) {
@@ -659,6 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
     </script>
 </body>
 </html>
