@@ -316,8 +316,11 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
         <div class="bird-list-header">English Species Registry</div>
         <div class="bird-scroll-container">
             <ul class="bird-list">
-               <li class="featured-bird">
+                <li class="featured-bird">
+    <span class="bird-label">Grey Plover</span>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png" alt="Grey Plover">
 </li>
+
                 <li>Velvet Scoter</li>
                 <li>Common Pochard</li>
                 <li>Black-legged Kittiwake</li>
@@ -394,35 +397,30 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
     ];
 
     const randomizePhotos = () => {
-        const imgElements = document.querySelectorAll('.refresh-photo');
+    const imgElements = document.querySelectorAll('.refresh-photo');
 
-        imgElements.forEach((img, index) => {
-            // Check if this image has already been set to avoid "reloading" flicker
-            if (img.dataset.randomized === "true") return;
+    imgElements.forEach((img, index) => {
+        const person = photoMapping[index];
+        if (!person) return;
 
-            const person = photoMapping[index];
-            if (!person) return;
+        const storageKey = `last_img_${person.name}`;
+        let savedIndex = sessionStorage.getItem(storageKey);
 
-            const storageKey = `last_img_${person.name}`;
-            let savedIndex = sessionStorage.getItem(storageKey);
+        // If it doesn't exist, pick one and save it
+        if (savedIndex === null) {
+            savedIndex = Math.floor(Math.random() * person.options.length);
+            sessionStorage.setItem(storageKey, savedIndex);
+        }
 
-            if (savedIndex === null) {
-                savedIndex = Math.floor(Math.random() * person.options.length);
-                sessionStorage.setItem(storageKey, savedIndex);
-            }
+        const chosenPhoto = person.options[savedIndex];
 
-            const chosenPhoto = person.options[savedIndex];
+        // Update the source
+        img.src = chosenPhoto;
 
-            // Only update if current src is different from chosen one
-            // We use a relative path check to be safe
-            if (!img.src.includes(chosenPhoto)) {
-                img.src = chosenPhoto;
-            }
-
-            // Mark as done so the script doesn't touch it again
-            img.dataset.randomized = "true";
-        });
-    };
+        // Add a class to fade it in smoothly rather than popping in
+        img.style.opacity = "1";
+    });
+};
 
     randomizePhotos();
 

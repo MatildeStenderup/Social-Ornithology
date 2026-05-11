@@ -737,3 +737,176 @@ body.no-scroll {
         flex-direction: column !important; /* Prevents the 'reverse' row logic */
     }
 }
+/* Thumbnail style: Right-aligned and line-height matched */
+.featured-bird {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between; /* Pushes text left, image right */
+    align-items: center;
+    padding: 12px 20px !important; /* Matches your other list items */
+    background: #f9f9f9;
+}
+
+.featured-bird .bird-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--bird-green);
+}
+
+.featured-bird img {
+    /* Hard-cap the size so it can't expand */
+    height: 18px !important;
+    width: auto !important;
+
+    /* Alignment fixes */
+    display: inline-block;
+    vertical-align: middle;
+
+    /* Visual polish */
+    border-radius: 2px;
+    object-fit: contain;
+    margin-left: auto; /* Pushes it to the right in a flex row */
+
+    /* Prevent any container stretching */
+    flex-shrink: 0;
+    max-width: 40px;
+}
+
+/* Hover effect consistency */
+.featured-bird:hover {
+    background: #f1f8f1;
+    cursor: default;
+}/* Image display inside the fixed box */
+.bird-image-display {
+    flex: 0 0 200px; /* Fixed height for the image area */
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 2px solid #eee;
+}
+
+.bird-image-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crops the owl photo perfectly */
+}
+
+.image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 5px 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Adjust the scroll container to take the remaining 300px */
+.bird-scroll-container {
+    flex: 1 1 auto;
+    overflow-y: auto !important;
+    background: #fdfdfd;
+}
+/* 1. Force the Visual Block to a static, fixed size */
+.step.single-column-step .visual-block.fixed-scroll-box {
+    height: 500px !important;    /* Total height of the widget */
+    max-height: 500px !important;
+    position: relative !important; /* Disables sticky for this section */
+    top: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;  /* CRITICAL: clips the list */
+}
+
+/* 2. Style the header to stay at the top */
+.bird-list-header {
+    flex: 0 0 auto;
+    background: var(--bird-green);
+    color: white;
+    padding: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* 3. Make only this part scrollable */
+.bird-scroll-container {
+    flex: 1 1 auto;      /* Fills the rest of the 500px */
+    overflow-y: auto !important;
+    background: #fdfdfd;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll for mobile */
+}
+
+/* 4. Ensure the list doesn't force the container to grow */
+.bird-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+/* Container sizing & Layout */
+.fixed-scroll-box {
+    height: 500px !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden !important;
+}
+
+.bird-list-header {
+    flex: 0 0 auto;
+    background: var(--bird-green);
+    color: white;
+    padding: 15px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bird-scroll-container {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    background: #fdfdfd;
+}
+
+/* List Styling */
+.bird-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bird-list li {
+    padding: 15px 25px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.bird-list li:hover {
+    background: #f1f8f1;
+    color: var(--bird-green);
+    cursor: default;
+}
+
+.bird-list li:last-child {
+    border-bottom: none;
+}
+
+/* Custom Scrollbar Styling */
+.bird-scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bird-scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.bird-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--bird-green);
+    border-radius: 4px;
+}
