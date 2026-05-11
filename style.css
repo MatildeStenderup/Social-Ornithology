@@ -737,3 +737,68 @@ body.no-scroll {
         flex-direction: column !important; /* Prevents the 'reverse' row logic */
     }
 }
+/* Container sizing & Layout */
+.fixed-scroll-box {
+    height: 500px !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden !important;
+}
+
+.bird-list-header {
+    flex: 0 0 auto;
+    background: var(--bird-green);
+    color: white;
+    padding: 15px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bird-scroll-container {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    background: #fdfdfd;
+}
+
+/* List Styling */
+.bird-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bird-list li {
+    padding: 15px 25px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.bird-list li:hover {
+    background: #f1f8f1;
+    color: var(--bird-green);
+    cursor: default;
+}
+
+.bird-list li:last-child {
+    border-bottom: none;
+}
+
+/* Custom Scrollbar Styling */
+.bird-scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bird-scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.bird-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--bird-green);
+    border-radius: 4px;
+}

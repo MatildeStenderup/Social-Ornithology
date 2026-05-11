@@ -308,19 +308,54 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
     </section>
 
  <section class="step single-column-step" id="step9">
-        <div class="text-block">
-            <h2>Do you want to be a part of the trend?</h2>
-        <p>To be an accepted birdwatcher and part of the community, you have to contribute to the fellowship. It is a social community where sharing your knowledge is what makes you an accepted member. By doing that, you can collectively notify each other when there is a social gathering and commute together.<br><br>
-            Before we start, we are calling all the species names in the category 'VernacularName'. <br><br>
-            After calling all bird names under the category 'vernacularName', we translate them to the english species names, so those can be used in the visualizations.<br><br>
-        </p>
+    <div class="text-block">
+        <h2>The Language of the Flock</h2>
+        <p>To be an accepted birdwatcher and part of the community, you have to contribute to the fellowship. Below is our species registry, translated into English to align Danish observations with global biodiversity standards.</p>
+    </div>
+    <div class="visual-block fixed-scroll-box">
+        <div class="bird-list-header">English Species Registry</div>
+        <div class="bird-scroll-container">
+            <ul class="bird-list">
+                <li>Grey Plover</li>
+                <li>Velvet Scoter</li>
+                <li>Common Pochard</li>
+                <li>Black-legged Kittiwake</li>
+                <li>Red-footed Falcon</li>
+                <li>Long-tailed Duck</li>
+                <li>European Turtle Dove</li>
+                <li>Horned Grebe</li>
+                <li>Curlew Sandpiper</li>
+                <li>Northern Bald Ibis</li>
+                <li>Reeve's Pheasant</li>
+                <li>Red-breasted Goose</li>
+                <li>Broad-billed Sandpiper</li>
+                <li>Atlantic Puffin</li>
+                <li>Snowy Owl</li>
+                <li>White-headed Duck</li>
+                <li>Lesser Yellowlegs</li>
+                <li>Steppe Eagle</li>
+                <li>Swan Goose</li>
+                <li>Buff-breasted Sandpiper</li>
+                <li>Eastern Imperial Eagle</li>
+                <li>Aquatic Warbler</li>
+                <li>Lesser White-fronted Goose</li>
+                <li>Military Macaw</li>
+                <li>White-rumped Sandpiper</li>
+                <li>Rustic Bunting</li>
+                <li>Red-crowned Crane</li>
+                <li>Steller's Eider</li>
+                <li>Audouin's Gull</li>
+                <li>Sharp-tailed Sandpiper</li>
+                <li>Saker Falcon</li>
+                <li>Sociable Lapwing</li>
+                <li>Egyptian Vulture</li>
+                <li>Steller's Sea Eagle</li>
+                <li>Yellow-breasted Bunting</li>
+                <li>Rüppell's Vulture</li>
+            </ul>
         </div>
-        <div class="visual-block">
-            <div class="chart-placeholder">
-<img  class="expandable-image">
-</div>
-        </div>
-    </section>
+    </div>
+</section>
      <section class="step single-column-step" id="step10">
         <div class="text-block">
             <h2>Do you want to be a part of the trend?</h2>
@@ -340,9 +375,8 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
     <footer class="outro">
     </footer>
 
-    <script>
-   document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. PERSON-SPECIFIC RANDOMIZATION (FORCED CHANGE) ---
+    <script>document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. OPTIMIZED PERSON-SPECIFIC RANDOMIZATION ---
     const photoMapping = [
         {
             name: "Matilde",
@@ -359,69 +393,90 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
     ];
 
     const randomizePhotos = () => {
-    const imgElements = document.querySelectorAll('.refresh-photo');
+        const imgElements = document.querySelectorAll('.refresh-photo');
 
-    imgElements.forEach((img, index) => {
-        const person = photoMapping[index];
-        if (!person) return;
+        imgElements.forEach((img, index) => {
+            // Check if this image has already been set to avoid "reloading" flicker
+            if (img.dataset.randomized === "true") return;
 
-        const storageKey = `last_img_${person.name}`;
-        let savedIndex = sessionStorage.getItem(storageKey);
+            const person = photoMapping[index];
+            if (!person) return;
 
-        // If we haven't picked an image for this tab session yet, pick one
-        if (savedIndex === null) {
-            savedIndex = Math.floor(Math.random() * person.options.length);
-            sessionStorage.setItem(storageKey, savedIndex);
-        }
+            const storageKey = `last_img_${person.name}`;
+            let savedIndex = sessionStorage.getItem(storageKey);
 
-        const chosenPhoto = person.options[savedIndex];
-        // Only update the src if it's actually different to avoid flicker
-        if (img.getAttribute('src') !== chosenPhoto) {
-            img.src = chosenPhoto;
-        }
-    });
-};
+            if (savedIndex === null) {
+                savedIndex = Math.floor(Math.random() * person.options.length);
+                sessionStorage.setItem(storageKey, savedIndex);
+            }
+
+            const chosenPhoto = person.options[savedIndex];
+
+            // Only update if current src is different from chosen one
+            // We use a relative path check to be safe
+            if (!img.src.includes(chosenPhoto)) {
+                img.src = chosenPhoto;
+            }
+
+            // Mark as done so the script doesn't touch it again
+            img.dataset.randomized = "true";
+        });
+    };
+
     randomizePhotos();
 
-    // --- 2. SCROLL & PROGRESS LINE LOGIC ---
+    // --- 2. SCROLL & PROGRESS LINE LOGIC (Optimized with ResizeObserver) ---
     const lineFill = document.getElementById('line-fill');
     const container = document.querySelector('.story-container');
     const stops = document.querySelectorAll('.stop');
 
     const alignStopsWithTitles = () => {
-        if (document.body.classList.contains('no-scroll')) return;
+        if (document.body.classList.contains('no-scroll') || !container) return;
 
         const steps = document.querySelectorAll('.step');
+        const containerRect = container.getBoundingClientRect();
+
         steps.forEach((stepElement, index) => {
             const stop = document.querySelector(`.stop-${index + 1}`);
-            if (stepElement && stop) {
-                const title = stepElement.querySelector('h2');
-                if (!title) return;
-                const containerRect = container.getBoundingClientRect();
+            const title = stepElement.querySelector('h2');
+
+            if (stop && title) {
                 const titleRect = title.getBoundingClientRect();
                 const relativeTop = titleRect.top - containerRect.top;
+                // Use transform for smoother positioning
                 stop.style.top = `${relativeTop + (title.offsetHeight / 2)}px`;
             }
         });
     };
 
+    // Use ResizeObserver instead of window resize for better performance
+    if (window.ResizeObserver) {
+        const ro = new ResizeObserver(() => alignStopsWithTitles());
+        ro.observe(document.body);
+    }
+
     window.addEventListener('load', alignStopsWithTitles);
-    window.addEventListener('resize', () => window.requestAnimationFrame(alignStopsWithTitles));
 
     let isScrolling = false;
     window.addEventListener('scroll', () => {
-        if (document.body.classList.contains('no-scroll')) return;
+        if (document.body.classList.contains('no-scroll') || !container || !lineFill) return;
+
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
-                if (!container || !lineFill) return;
                 const containerOffset = container.offsetTop;
                 const containerHeight = container.offsetHeight;
+                // Calculate based on the center of the viewport
                 const scrollPosition = window.scrollY - containerOffset + (window.innerHeight / 2);
                 let scrollPercent = (scrollPosition / containerHeight) * 100;
+
                 scrollPercent = Math.max(0, Math.min(scrollPercent, 100));
                 lineFill.style.height = scrollPercent + "%";
+
                 stops.forEach(stop => {
-                    const stopPercent = (stop.offsetTop / containerHeight) * 100;
+                    // Check if the fill has reached the stop's position
+                    const stopPos = parseFloat(stop.style.top);
+                    const stopPercent = (stopPos / containerHeight) * 100;
+
                     if (scrollPercent >= stopPercent) {
                         stop.classList.add('active');
                     } else {
@@ -443,35 +498,40 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
         "04.": "highlight-id"
     };
 
-    const activateSensor = (card) => {
-        const numElement = card.querySelector('.sensor-number');
-        if (!numElement) return;
-        const num = numElement.innerText.trim();
-        const targetId = highlightMap[num];
-        const targetEl = document.getElementById(targetId);
-        sensorCards.forEach(c => c.classList.remove('is-active'));
-        document.querySelectorAll('.highlight-target').forEach(el => el.classList.remove('highlight-active'));
-        card.classList.add('is-active');
-        if (targetEl) {
-            targetEl.classList.add('highlight-active');
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    };
-
     sensorCards.forEach(card => {
-        card.addEventListener('click', () => activateSensor(card));
-        card.addEventListener('keypress', (e) => { if (e.key === 'Enter') activateSensor(card); });
+        const handleClick = () => {
+            const numElement = card.querySelector('.sensor-number');
+            if (!numElement) return;
+
+            const num = numElement.innerText.trim();
+            const targetId = highlightMap[num];
+            const targetEl = document.getElementById(targetId);
+
+            sensorCards.forEach(c => c.classList.remove('is-active'));
+            document.querySelectorAll('.highlight-target').forEach(el => el.classList.remove('highlight-active'));
+
+            card.classList.add('is-active');
+            if (targetEl) {
+                targetEl.classList.add('highlight-active');
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        };
+
+        card.addEventListener('click', handleClick);
+        card.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleClick(); });
     });
 
     // --- 4. FULLSCREEN LOGIC ---
     const toggleFullscreen = (element) => {
         const isOpening = !element.classList.contains('fullscreen');
+
+        // Close any existing fullscreens
         document.querySelectorAll('.fullscreen').forEach(el => el.classList.remove('fullscreen'));
+
         if (isOpening) {
             element.classList.add('fullscreen');
             document.body.classList.add('no-scroll');
         } else {
-            element.classList.remove('fullscreen');
             document.body.classList.remove('no-scroll');
         }
     };
@@ -483,13 +543,12 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
         });
     });
 
+    // Global click to close fullscreen
     document.addEventListener('click', (e) => {
-        if (document.body.classList.contains('no-scroll')) {
-            const activeFullscreen = document.querySelector('.fullscreen');
-            if (activeFullscreen && !activeFullscreen.contains(e.target)) {
-                activeFullscreen.classList.remove('fullscreen');
-                document.body.classList.remove('no-scroll');
-            }
+        const activeFullscreen = document.querySelector('.fullscreen');
+        if (activeFullscreen && !activeFullscreen.contains(e.target)) {
+            activeFullscreen.classList.remove('fullscreen');
+            document.body.classList.remove('no-scroll');
         }
     });
 
