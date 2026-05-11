@@ -193,7 +193,7 @@ This visualization confirms that our dataset is not merely a list of birds, but 
     <section class="step" id="step3">
         <div class="text-block">
             <h2>Total observation per year (1990-Present)</h2>
-            <p>The plot above tracks the raw growth of observations from 1990 to 2026:<br><br>
+            <p>The plot above shows the growth of observations for all municipalitiesfrom 1990 to 2026:<br><br>
 
 <strong>1990–2003:</strong> Data volume remained consistent and low, averaging approximately 5,000 observations per year. Birdwatching was largely an analog activity. Observations were often recorded in physical notebooks and shared through local club newsletters or landline phone "rare bird" alerts .
 he internet was in its infancy. <a href="https://dofbasen.dk/english/" target="_blank" class="reference-link">DOFbasen</a> (the Danish Ornithological Society's database) was established as an online platform toward the end of this era, shifting the mission from local club sharing to a science-based NGO profile.<br><br>
@@ -214,16 +214,14 @@ This trend establishes a baseline for comparing modern data density against hist
     <section class="step" id="step4">
         <div class="text-block">
             <h2>Geographical Distribution</h2>
-            <p>The visualization highlights three critical patterns in the Danish "Social Sensor" network: <br><br>
-<ol>
-<li>Infrastructure over Population: Surprisingly, Nordfyn (70k) outperforms København (67k). This proves that high-quality nature infrastructure can generate more social data than a capital city's population density.</li>
+            <p>The data reveals that human "flocking" is driven by reputation and infrastructure rather than just bird or human population density.
 
-<li>The "Famous Site" Effect: There is a massive drop-off from Skagen (33k) to Vendsyssel Nord (6.1k). This shows that human "flocking" is highly concentrated at famous landmarks, even if birds are present in the surrounding regions.</li>
+<strong>Infrastructure Wins:</strong> Frederikshavn (approx. 30k) and Guldborgsund (approx. 24k) lead the nation. These regions outperform major cities like Aarhus (approx. 16k), proving that specialized birding stations and coastal infrastructure generate more data than urban population density.<br>
 
-<li>Urban Baselines: København and Odense act as reliable "Urban Hubs," where high sensor density is driven by proximity and convenience rather than rare biological events.</li><br><br>
-            </ol>
-Geography proves that bird data is a product of accessibility. Human sensors don't just go where the birds are; they go where the social infrastructure—paths, towers, and reputations—makes it easiest to "flock."<br><br>
+<strong>The Magnet Effect:</strong> The sharp drop-off after the top five municipalities shows that social sensing is highly concentrated. Observers gravitate toward "elite" landmarks with established reputations, leaving most other regions as quiet baselines.<br>
 
+<strong>Convenience Hubs:</strong> Mid-tier municipalities like Aalborg and Varde represent an "accessibility baseline"—steady data driven by local residents using nearby paths for everyday birding.<br><br>
+<strong>The Verdict:</strong> Bird data is a product of accessibility. Human sensors don't just go where the birds are; they flock to the towers, paths, and parking lots that make sensing easy.<br><br><br>
 </p>
         </div>
         <div class="visual-block">
@@ -237,8 +235,14 @@ Geography proves that bird data is a product of accessibility. Human sensors don
     <section class="step" id="step5">
         <div class="text-block">
             <h2>Total Observations per Area per Year</h2>
-            <p>The plots above provide a dual perspective on the "Total Observations per Area per Year." The first subplot, the <strong>Geographical Distribution of Bird Sightings by Cluster</strong>, visually represents how observations are spatially grouped across Denmark. Each color corresponds to a distinct KMeans cluster, highlighting the regions where bird sightings are concentrated. This static map helps in understanding the physical locations that serve as observation hotspots.<br><br>
-                The second subplot, the <strong>Total Observations per Cluster per Year Heatmap</strong>, shows the temporal evolution of observations within these identified clusters. The heatmap illustrates how the number of sightings in each geographical cluster changes annually, allowing us to identify patterns of activity over time. Together, these visualizations help to analyze the "human base rate" of observation activity and to discern how it fluctuates across different regions and years.<br><br>
+            <p>By clustering millions of data points into 10 geographic "pulse zones," we can objectively separate the Human Base Rate (where people live) from Anomalous Spikes (where the birds are).<br><br>
+                <strong>The Urban Anchor (Clusters 0 & 3):</strong> The Capital Region remains the most stable "social sensor." Its consistent deep green saturation post-2010 reflects high observer density and reliable infrastructure.<br>
+
+                <strong>The Skagen Explosion (Cluster 4):</strong> The heatmap reveals a massive intensification in North Jutland after 2020. This region has evolved from a seasonal birding spot into a year-round social epicenter.<br>
+
+                <strong>The Digital Shift:</strong> Across all clusters, the transition from pale yellow to vibrant green (2008–2015) marks the "Digital Awakening"—the moment mobile reporting transformed birdwatching from a notebook hobby into a real-time data stream.<br>
+
+                <strong>Spotting the Rare:</strong> Clusters 5 and 6 (Western Jutland) maintain a low base rate. Any sudden darkening in these zones isn't just noise—it's a high-value "swarm" where a rarity has successfully pulled the community away from the cities.<br><br><br>
 
             </p><br><br>
         </div>
@@ -272,8 +276,10 @@ It uses the eventtime column to get the time of day and the eventdate to get day
 
      <section class="step" id="step7">
         <div class="text-block">
-            <h2>Title</h2>
-        <p></p>
+            <h2>The population density anomaly</h2>
+        <p>While we could expect a correlation between the amount of people in the municipality and the amount of sightings it is not what is actually happening. As we saw in our opening exploration there is some municipalities that stand out from the rest. Especially Frederikshavn and Odsherred. These are rural areas with a lot of nature and coastal areas that also appeal to hikers and nature lovers which could explain the overrepresentation in observations.<br><br>
+        Something to be noted is that due to the size of our dataset we filtered out all of the common bird sightings and the distribution could therefore also be explained by a larger occurance of rare birds rather than a larger population of birdwatchers.<br><br><br>
+        </p>
         </div>
         <div class="visual-block">
             <div class="chart-placeholder">
@@ -284,8 +290,14 @@ It uses the eventtime column to get the time of day and the eventdate to get day
 
      <section class="step" id="step8">
         <div class="text-block">
-            <h2>Title</h2>
-        <p></p>
+            <h2>Birdwatching powerhouse or one time fad</h2>
+        <p>
+            When tryin to understand the patterns of birdwatchers it was relevant to understand their behavior. So when comparing the highest and lowest 25% to the middle 50% it becomes clear that while we see a lot of birdwatchers there is a dedicated core contributing a majority of the sightings while the bottom 25% is more likely people who are interested in exploring birdwatching or maybe someone who spotted an interesting bird and wanted to report it.<br><br>
+            Birdlife Denmark (DOF) have developed an app that simplifies the classification of bird sightings which might contribute to the general rise in sightings together with the pandemic in 2020. This however is probably sommething that could turn into a fad or a onetime thing as the original app hype might turn into a chore or simply be forgotten.<br><br>
+            We found it interesting to explore the more general behavior of the bird watchers. It is therefore relevant to see if there is a development in how many observations there is made by one individual and how the mean compares to the most and least active users.
+
+Interestingly the most active users are the ones who fluctuate the most. Interestingly the pandemic didn't affect the amount of observations per individuals eventhough it did provide a bump in total observations meaning that a lot of new people picked up the hobby.<br><br><br>
+        </p>
         </div>
         <div class="visual-block">
             <div class="chart-placeholder">
@@ -296,8 +308,11 @@ It uses the eventtime column to get the time of day and the eventdate to get day
 
  <section class="step" id="step9">
         <div class="text-block">
-            <h2>Title</h2>
-        <p></p>
+            <h2>Do you want to be a part of the trend?</h2>
+        <p>To be an accepted birdwatcher and part of the community, you have to contribute to the fellowship. It is a social community where sharing your knowledge is what makes you an accepted member. By doing that, you can collectively notify each other when there is a social gathering and commute together.<br><br>
+            Before we start, we are calling all the species names in the category 'VernacularName'. <br><br>
+            After calling all bird names under the category 'vernacularName', we translate them to the english species names, so those can be used in the visualizations.<br><br>
+        </p>
         </div>
         <div class="visual-block">
             <div class="chart-placeholder">
@@ -330,31 +345,28 @@ It uses the eventtime column to get the time of day and the eventdate to get day
     ];
 
     const randomizePhotos = () => {
-        const imgElements = document.querySelectorAll('.refresh-photo');
+    const imgElements = document.querySelectorAll('.refresh-photo');
 
-        imgElements.forEach((img, index) => {
-            const person = photoMapping[index];
-            if (!person) return;
+    imgElements.forEach((img, index) => {
+        const person = photoMapping[index];
+        if (!person) return;
 
-            // Get the last used image index from session storage
-            const storageKey = `last_img_${person.name}`;
-            const lastIndex = parseInt(sessionStorage.getItem(storageKey));
+        const storageKey = `last_img_${person.name}`;
+        let savedIndex = sessionStorage.getItem(storageKey);
 
-            let newIndex;
-            // Loop until we get an index different from the last one
-            do {
-                newIndex = Math.floor(Math.random() * person.options.length);
-            } while (newIndex === lastIndex && person.options.length > 1);
+        // If we haven't picked an image for this tab session yet, pick one
+        if (savedIndex === null) {
+            savedIndex = Math.floor(Math.random() * person.options.length);
+            sessionStorage.setItem(storageKey, savedIndex);
+        }
 
-            // Save the new index for the next reload
-            sessionStorage.setItem(storageKey, newIndex);
-
-            const chosenPhoto = person.options[newIndex];
-            // Apply source with cache-busting timestamp
+        const chosenPhoto = person.options[savedIndex];
+        // Only update the src if it's actually different to avoid flicker
+        if (img.getAttribute('src') !== chosenPhoto) {
             img.src = chosenPhoto;
-        });
-    };
-
+        }
+    });
+};
     randomizePhotos();
 
     // --- 2. SCROLL & PROGRESS LINE LOGIC ---
