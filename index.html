@@ -307,69 +307,96 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
         </div>
     </section>
 
- <section class="step single-column-step" id="step9">
     <div class="text-block">
-        <h2>The Language of the Flock</h2>
-        <p>To be an accepted birdwatcher and part of the community, you have to contribute to the fellowship. Below is our species registry, translated into English to align Danish observations with global biodiversity standards.</p>
+        <h2>Do you want to be a part of the trend?</h2>
+        <p>
+            To be an accepted birdwatcher and part of the community, you have to contribute to the fellowship.
+            It is a social community where sharing your knowledge is what makes you an accepted member.
+            By doing that, you can collectively notify each other when there is a social gathering and commute together.
+        </p>
     </div>
-    <div class="visual-block fixed-scroll-box">
-        <div class="bird-list-header">English Species Registry</div>
-        <div class="bird-scroll-container">
-            <ul class="bird-list">
-                <li class="featured-bird">
-    <span class="bird-label">Grey Plover</span>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png" alt="Grey Plover">
-</li>
-
-                <li>Velvet Scoter</li>
-                <li>Common Pochard</li>
-                <li>Black-legged Kittiwake</li>
-                <li>Red-footed Falcon</li>
-                <li>Long-tailed Duck</li>
-                <li>European Turtle Dove</li>
-                <li>Horned Grebe</li>
-                <li>Curlew Sandpiper</li>
-                <li>Northern Bald Ibis</li>
-                <li>Reeve's Pheasant</li>
-                <li>Red-breasted Goose</li>
-                <li>Broad-billed Sandpiper</li>
-                <li>Atlantic Puffin</li>
-                <li>Snowy Owl</li>
-                <li>White-headed Duck</li>
-                <li>Lesser Yellowlegs</li>
-                <li>Steppe Eagle</li>
-                <li>Swan Goose</li>
-                <li>Buff-breasted Sandpiper</li>
-                <li>Eastern Imperial Eagle</li>
-                <li>Aquatic Warbler</li>
-                <li>Lesser White-fronted Goose</li>
-                <li>Military Macaw</li>
-                <li>White-rumped Sandpiper</li>
-                <li>Rustic Bunting</li>
-                <li>Red-crowned Crane</li>
-                <li>Steller's Eider</li>
-                <li>Audouin's Gull</li>
-                <li>Sharp-tailed Sandpiper</li>
-                <li>Saker Falcon</li>
-                <li>Sociable Lapwing</li>
-                <li>Egyptian Vulture</li>
-                <li>Steller's Sea Eagle</li>
-                <li>Yellow-breasted Bunting</li>
-                <li>Rüppell's Vulture</li>
-            </ul>
+<section class="step" id="step9">
+    <div class="bird-explorer">
+        <div class="bird-list-column">
+            <div class="bird-list-header">Species Registry</div>
+            <div class="bird-scroll-container">
+                <ul class="bird-list" id="bird-selector-list">
+    <li class="active-bird" data-bird="Grey Plover">Grey Plover</li>
+    <li data-bird="Velvet Scoter">Velvet Scoter</li>
+    <li data-bird="Common Pochard">Common Pochard</li>
+    <li data-bird="Black-legged Kittiwake">Black-legged Kittiwake</li>
+    <li data-bird="Red-footed Falcon">Red-footed Falcon</li>
+    <li data-bird="Long-tailed Duck">Long-tailed Duck</li>
+    <li data-bird="European Turtle Dove">European Turtle Dove</li>
+    <li data-bird="Horned Grebe">Horned Grebe</li>
+    <li data-bird="Curlew Sandpiper">Curlew Sandpiper</li>
+    <li data-bird="Northern Bald Ibis">Northern Bald Ibis</li>
+    <li data-bird="Reeve's Pheasant">Reeve's Pheasant</li>
+    <li data-bird="Red-breasted Goose">Red-breasted Goose</li>
+    <li data-bird="Broad-billed Sandpiper">Broad-billed Sandpiper</li>
+    <li data-bird="Atlantic Puffin">Atlantic Puffin</li>
+    <li data-bird="Snowy Owl">Snowy Owl</li>
+    <li data-bird="White-headed Duck">White-headed Duck</li>
+    <li data-bird="Lesser Yellowlegs">Lesser Yellowlegs</li>
+    <li data-bird="Steppe Eagle">Steppe Eagle</li>
+    <li data-bird="Swan Goose">Swan Goose</li>
+    <li data-bird="Buff-breasted Sandpiper">Buff-breasted Sandpiper</li>
+    <li data-bird="Eastern Imperial Eagle">Eastern Imperial Eagle</li>
+    <li data-bird="Aquatic Warbler">Aquatic Warbler</li>
+    <li data-bird="Lesser White-fronted Goose">Lesser White-fronted Goose</li>
+    <li data-bird="Military Macaw">Military Macaw</li>
+    <li data-bird="White-rumped Sandpiper">White-rumped Sandpiper</li>
+    <li data-bird="Rustic Bunting">Rustic Bunting</li>
+    <li data-bird="Red-crowned Crane">Red-crowned Crane</li>
+    <li data-bird="Steller's Eider">Steller's Eider</li>
+    <li data-bird="Audouin's Gull">Audouin's Gull</li>
+    <li data-bird="Sharp-tailed Sandpiper">Sharp-tailed Sandpiper</li>
+    <li data-bird="Saker Falcon">Saker Falcon</li>
+    <li data-bird="Sociable Lapwing">Sociable Lapwing</li>
+    <li data-bird="Egyptian Vulture">Egyptian Vulture</li>
+    <li data-bird="Steller's Sea Eagle">Steller's Sea Eagle</li>
+    <li data-bird="Yellow-breasted Bunting">Yellow-breasted Bunting</li>
+    <li data-bird="Rüppell's Vulture">Rüppell's Vulture</li>
+</ul>
+            </div>
         </div>
+
+        <div class="bird-preview-pane">
+    <img id="main-bird-image"
+         src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png/500px-Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png"
+         alt="Bird Preview">
+
+    <div class="image-caption" id="bird-caption">Grey Plover</div>
+</div>
     </div>
 </section>
      <section class="step single-column-step" id="step10">
         <div class="text-block">
-            <h2>Do you want to be a part of the trend?</h2>
+            <h2>Optimize your time</h2>
         <p>
-
-        </p>
+            Every species has its own "social window" - a specific time of year when the human sensor network vibrates with activity. If you want to arrive and identify a specific species, you need to know which months to dedicate your time to. To be a part of the "Social Gold Rush," you can use this bar chart to identify different species and allocate your time perfectly throughout the year. By timing it right, you increase your chances of being part of the "trending" species of the month.<br><br>
+            The chart shows the probability per month for each species across the year. This helps you see when a specific bird is most likely to trigger a social response. For example, if you want to know when to observe the Red-footed Falcon (Aftenfalk), select it in the chart. Notice the social peak in May. This acts as a baseline for the community's readiness. Knowing which months have the most activity gives you the opportunity to schedule your time and be ready for the next time there is a trending species or a hotspot for the Falcon.<br><br><br>
+             </p>
         </div>
         <div class="visual-block">
             <div class="chart-placeholder">
-<img  class="expandable-image">
+<img >
+</div>
+        </div>
+    </section>
+
+         <section class="step single-column-step" id="step11">
+        <div class="text-block">
+            <h2>The Anatomy of a Swarm: Mapping the Social Heat</h2>
+        <p>
+            The previous chart told us when the sensors are active. This interactive map shows exactly where the swarm assembles. Once you know when to look, the next question is where to join the flock. This is where the digital signal meets the physical landscape.<br><br>
+The social heatmap is your guide to the community's presence. It visualizes the convergence of humans and birds, filtered by your chosen species and month. By using the slider to move through the months, you are watching the movement of human attention across the Danish landscape.<br><br>
+If you look for the Red-footed Falcon in May, notice how certain coordinates glow brighter than others. These aren't just random spots; they are the "Social Hotspots" where the community gathers to watch the falcon. Choose your species, find the community's dedicated month, and find your coordinates to join the army documenting the Danish wild.<br><br><br>
+             </p>
+        </div>
+        <div class="visual-block">
+            <div class="chart-placeholder">
+<img >
 </div>
         </div>
     </section>
@@ -447,6 +474,77 @@ Interestingly the most active users are the ones who fluctuate the most. Interes
             }
         });
     };
+document.addEventListener('DOMContentLoaded', () => {
+    const birdItems = document.querySelectorAll('#bird-selector-list li');
+    const displayImg = document.getElementById('main-bird-image');
+    const caption = document.getElementById('bird-caption');
+
+    // Updated Mapping with your specific Grey Plover link
+    const birdImages = {
+    "Grey Plover": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png/500px-Breeding_plumage_Black-bellied_plover_%28Pluvialis_squatarola%29_Great_Bay_Wildlife_Management_Area%2C_New_Jersey%2C_USA.png",
+    "Velvet Scoter": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Velvet_Scoter%2C_Eyebrook_Reservoir%2C_Leics.jpg/500px-Velvet_Scoter%2C_Eyebrook_Reservoir%2C_Leics.jpg",
+    "Common Pochard": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Common_Pochard_2025_11_15_04.jpg/500px-Common_Pochard_2025_11_15_04.jpg",
+    "Black-legged Kittiwake": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Black-legged_Kittiwake.jpg/500px-Black-legged_Kittiwake.jpg",
+    "Red-footed Falcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Red-footed_Falcon.jpg/500px-Red-footed_Falcon.jpg",
+    "Long-tailed Duck": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Long-tailed_Duck.jpg/500px-Long-tailed_Duck.jpg",
+    "European Turtle Dove": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/European_Turtle_Dove.jpg/500px-European_Turtle_Dove.jpg",
+    "Horned Grebe": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Horned_Grebe.jpg/500px-Horned_Grebe.jpg",
+    "Curlew Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg/500px-Curlew_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
+    "Northern Bald Ibis": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Northern_Bald_Ibis_Geronticus_eremita_%288470600428%29.jpg/500px-Northern_Bald_Ibis_Geronticus_eremita_%288470600428%29.jpg",
+    "Reeve's Pheasant": "https://upload.wikimedia.org/wikipedia/commons/0/08/BxZ_Syrmaticus_reevesii_00.jpg",
+    "Red-breasted Goose": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Red-breasted_goose_arp.jpg/500px-Red-breasted_goose_arp.jpg",
+    "Broad-billed Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Broad-billed_Sandpiper_%28Calidris_falcinellus%29_%2844855173205%29.jpg/500px-Broad-billed_Sandpiper_%28Calidris_falcinellus%29_%2844855173205%29.jpg",
+    "Atlantic Puffin": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Atlantic_Puffin.jpg/500px-Atlantic_Puffin.jpg",
+    "Snowy Owl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Snowy_Owl.jpg/500px-Snowy_Owl.jpg",
+    "White-headed Duck": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/White-headed_Duck.jpg/500px-White-headed_Duck.jpg",
+    "Lesser Yellowlegs": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Lesser_Yellowlegs.jpg/500px-Lesser_Yellowlegs.jpg",
+    "Steppe Eagle": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Steppe_Eagle_Portrait.jpg/500px-Steppe_Eagle_Portrait.jpg",
+    "Swan Goose": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Anser_cygnoides%2C_Ozero_Stepnoye%2C_Ivolginskiy%2C_Buryatia_Republic%2C_Russia_1_%28cropped%29.jpg",
+    "Buff-breasted Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Tryngites_subruficollis_-USA-8.jpg/500px-Tryngites_subruficollis_-USA-8.jpg",
+    "Eastern Imperial Eagle": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Eastern_Imperial_Eagle_cr.jpg/500px-Eastern_Imperial_Eagle_cr.jpg",
+    "Aquatic Warbler": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Aquatic_Warbler_%28Acrocephalus_paludicola%29_%2814363772751%29.jpg/500px-Aquatic_Warbler_%28Acrocephalus_paludicola%29_%2814363772751%29.jpg",
+    "Lesser White-fronted Goose": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Lesser_White-fronted_Goose.jpg/500px-Lesser_White-fronted_Goose.jpg",
+    "Military Macaw": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Military_Macaw.jpg/500px-Military_Macaw.jpg",
+    "White-rumped Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/White-rumped_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg/500px-White-rumped_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
+    "Rustic Bunting": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Rustic_Bunting.jpg/500px-Rustic_Bunting.jpg",
+    "Red-crowned Crane": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Red-crowned_Crane.jpg/500px-Red-crowned_Crane.jpg",
+    "Steller's Eider": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steller's_Eider.jpg/500px-Steller's_Eider.jpg",
+    "Audouin's Gull": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Audouin's_Gull.jpg/500px-Audouin's_Gull.jpg",
+    "Sharp-tailed Sandpiper": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Sharp-tailed_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg/500px-Sharp-tailed_Sandpiper_%28Calidris_ferruginea%29_%2844855173205%29.jpg",
+    "Saker Falcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Saker_Falcon.jpg/500px-Saker_Falcon.jpg",
+    "Sociable Lapwing": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Sociable_Lapwing.jpg/500px-Sociable_Lapwing.jpg",
+    "Egyptian Vulture": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Egyptian_Vulture.jpg/500px-Egyptian_Vulture.jpg",
+    "Steller's Sea Eagle": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steller's_Sea_Eagle.jpg/500px-Steller's_Sea_Eagle.jpg",
+    "Yellow-breasted Bunting": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Yellow-breasted_Bunting.jpg/500px-Yellow-breasted_Bunting.jpg",
+    "Rüppell's Vulture": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Rüppell's_Vulture.jpg/500px-Rüppell's_Vulture.jpg"
+};
+
+    birdItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const birdName = item.getAttribute('data-bird');
+
+            // 1. Update Active Class UI
+            birdItems.forEach(i => i.classList.remove('active-bird'));
+            item.classList.add('active-bird');
+
+            // 2. Perform Image Swap with Fade Effect
+            displayImg.style.opacity = 0;
+
+            setTimeout(() => {
+                // Check if we have an image for this bird, otherwise use a placeholder
+                if (birdImages[birdName]) {
+                    displayImg.src = birdImages[birdName];
+                } else {
+                    // Optional: default image if name isn't in birdImages
+                    displayImg.src = "https://via.placeholder.com/500x500?text=No+Image+Available";
+                }
+
+                caption.innerText = birdName;
+                displayImg.style.opacity = 1;
+            }, 200);
+        });
+    });
+});
 
     // Use ResizeObserver instead of window resize for better performance
     if (window.ResizeObserver) {
