@@ -525,24 +525,37 @@ body.no-scroll {
 }
 /* Layout container mirroring the spatial balance of the reference image */
 .group-intro-header {
-    display: block;
-    align-items: center;
-    justify-content: space-between;
+    display: flex;
+    flex-direction: row;        /* Align items in a horizontal line */
+    justify-content: space-between; /* Push Notebook to left, Photos to right */
+    align-items: center;        /* Vertically center the link with the photos */
     width: 100%;
     max-width: 1100px;
     margin: 60px auto 0;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.02); /* Very subtle background */
-    border-radius: 24px 24px 0 0;
+    padding: 20px 40px;
+    flex-wrap: wrap;            /* Allows the caption to drop to the next line */
+}
+/* Left Side: Notebook Link */
+.header-content-side {
+    display: flex;
+    align-items: center;
+    flex: 1;                    /* Takes up the remaining space to push photos right */
 }
 
+/* Right Side: Photos */
+.header-photo-side {
+    display: flex;
+    gap: 15px;                  /* This controls the gap between photos—keep as is */
+    flex: 0 0 auto;             /* Forces this container to only be as wide as the photos */
+    justify-content: flex-end;
+}
 .header-content-side {
     flex: 1;
 }
 
 .header-photo-side {
     display: flex;
-    gap: 15px;
+    gap: 0px;
 }
 
 /* Minimalist slots for group portraits */
@@ -571,7 +584,11 @@ body.no-scroll {
     object-fit: cover;
     display: block;
 }
-
+.member-group {
+    display: flex;
+    gap: 8px; /* SHORTER GAP: This makes the pictures sit closer together */
+    margin-left: auto; /* This is the magic: it pushes this specific group to the right */
+}
 .member-name {
     font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
@@ -607,12 +624,14 @@ body.no-scroll {
     padding-bottom: 30px;
 }
 
-header-photo-side {
+.header-photo-side {
     display: flex;
-    justify-content: space-between; /* Pushes link to left, photos to right */
+    justify-content: space-between; /* This pushes the Notebook left and the Members right */
     align-items: center;
     width: 100%;
-    padding: 10px 40px; /* Adjust padding as needed */
+    max-width: 1100px; /* Adjust based on your layout */
+    margin: 0 auto;
+    padding: 10px 40px;
 }
 .header-nav {
     flex: 0 1 auto;
@@ -654,14 +673,19 @@ header-photo-side {
     transform: translateY(-1px);
 }
 
-.icon {
-    font-size: 5rem;
-    text-decoration: none; /* Prevents the emoji from being underlined */
-    display: inline-block;
-}
-.notebook {
+.Notebook {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+.icon {
+    font-size: 2rem;            /* Scaled down from 5rem to fit the header better */
+    text-decoration: none;
+    display: inline-block;
+}
+.group-caption {
+    width: 100%;                /* Forces it to take up a full line at the bottom */
+    text-align: right;
+    margin-top: 15px;
+}

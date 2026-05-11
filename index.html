@@ -21,14 +21,16 @@
         <!-- New Notebook Tab -->
 
     </div>
-    <div class="header-photo-side">
-        <nav class="header-nav">
-            <div class ="Notebook">
+<div class="header-photo-side">
+    <nav class="header-nav">
+        <div class="Notebook">
             <a href="URL_TO_YOUR_NOTEBOOK_HERE" target="_blank" class="notebook-link">
                 <span class="icon">📓</span> View Notebook
             </a>
-            </div>
-        </nav>
+        </div>
+    </nav>
+
+    <div class="member-group">
         <div class="member-slot">
             <div class="photo-container">
                 <img src="images/person1_a.jpg" class="refresh-photo" alt="Member 1">
@@ -47,6 +49,7 @@
             </div>
             <p class="member-name">Joakim s2455300</p>
         </div>
+    </div>
     </div>
     <!-- This is the centered text under all three -->
 <div class="group-caption">
@@ -254,8 +257,12 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
     </div>
     <section class="step" id="step6">
         <div class="text-block">
-            <h2>Title</h2>
-        <p></p>
+            <h2>A part time hobby</h2>
+        <p>Before we dive further into the birdwatching hobby it is interesting to understand the nature of the birdwatchers. While different birds are active at different times of day it is clear that the birdwatchers are most active around noon and especially in the weekend with sunday being the major hotspot.<br><br>
+        We do however see a general hotspot around noon independent of day of the week which could indicate that a lot of birdwatchers are people outside the workforce. This is also supported by looking through the names of the birdwatchers which have a tendency to be older male names. This is however only a theory as we can't see occupation and age in the dataset.<br><br>
+    In order to move from a generalized analysis of the bird watchers we wanted to dive into the nature of their behavior. The heatmap shows when the observations are made it shows all the data points in the dataset so we can't see a development but only a general picture.
+
+It uses the eventtime column to get the time of day and the eventdate to get day of the week <br><br><br></p>
         </div>
         <div class="visual-block">
             <div class="chart-placeholder">
@@ -345,7 +352,7 @@ The heatmap proves that North Funen and Copenhagen are the primary sensors of th
 
             const chosenPhoto = person.options[newIndex];
             // Apply source with cache-busting timestamp
-            img.src = chosenPhoto + "?v=" + Date.now();
+            img.src = chosenPhoto;
         });
     };
 
