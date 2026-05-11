@@ -162,6 +162,8 @@ h2 {
 .stop-7 { top: calc(197% + 25vh); }
 .stop-8 { top: calc(227% + 25vh); }
 .stop-9 { top: calc(257% + 25vh); }
+.stop-10 { top: calc(287% + 25vh); }
+.stop-11 { top: calc(317% + 25vh); }
 
 .stop.active {
     border-color: #ddd;
