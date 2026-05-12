@@ -727,7 +727,7 @@ body.no-scroll {
 }
 
 .icon {
-    font-size: 2rem;            /* Scaled down from 5rem to fit the header better */
+    font-size: 5rem;            /* Scaled down from 5rem to fit the header better */
     text-decoration: none;
     display: inline-block;
 }
