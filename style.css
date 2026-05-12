@@ -6,6 +6,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family: 'Inter', sans-serif;
@@ -183,10 +186,7 @@ h2 {
         transform: translateY(-50%) scale(1);
     }
 }
-.story-container {
-    position: relative;
-    overflow: hidden;
-}
+
 /* =========================================
 4. Step Sections (Content & Visuals)
 ========================================= */
@@ -197,6 +197,7 @@ h2 {
     min-height: 100vh;
     position: relative;
     display: flex;
+    scroll-snap-align: start;
 }
 
 
@@ -207,7 +208,9 @@ h2 {
 .text-block {
     flex: 0 0 40%;
     padding-top: 25vh;
+    padding-bottom: 25vh;
 }
+
 
 .text-block h2 {
     font-size: 2.5rem;
