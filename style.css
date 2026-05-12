@@ -1278,3 +1278,10 @@ body.no-scroll {
     width: 100%;
     margin-bottom: 20px;
 }
+.expandable-iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+    border-radius: 12px;
+    background: white;
+}
