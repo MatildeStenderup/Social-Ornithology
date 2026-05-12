@@ -10,7 +10,8 @@ html {
     scroll-behavior: smooth;
 }
 .pulse{
-    size = 0.5;
+    width: 50%;
+    height: 50%;
     }
 .green-divider {
     width: 100%;
