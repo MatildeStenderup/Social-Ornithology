@@ -13,6 +13,10 @@ html {
     width: 50%;
     height: 50%;
     }
+.expandable-image:hover,
+.expandable-iframe:hover {
+    transform: scale(1.01);
+}
 .green-divider {
     width: 100%;
     height: 3px;
