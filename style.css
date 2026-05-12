@@ -97,7 +97,7 @@ h2 {
 }
 
 .scroll-indicator {
-    margin-top: 2rem;
+    margin-top: 12rem;
     font-weight: bold;
     animation: bounce 2s infinite;
 }
