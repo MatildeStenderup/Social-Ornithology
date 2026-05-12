@@ -712,7 +712,7 @@ body.no-scroll {
     flex: 0 0 100% !important;
     max-width: 850px;
     padding-top: 60px !important;
-    margin-bottom: 40px;
+    #margin-bottom: 40px;
     text-align: left; /* Keeps text professional, change to center if preferred */
 }
 
@@ -1305,7 +1305,7 @@ body.no-scroll {
 /* Ensure text on top doesn't get squished */
 .text-block {
     width: 100%;
-    margin-bottom: 20px;
+    #margin-bottom: 20px;
 }
 .expandable-iframe {
     width: 100%;
