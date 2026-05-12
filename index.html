@@ -571,6 +571,7 @@ window.addEventListener('load', () => {
 
               stops.forEach(stop => {
                   const stopPercent = parseFloat(stop.style.top);
+if (isNaN(stopPercent)) return;
 
                   if (scrollPercent >= stopPercent) {
                       stop.classList.add('active');
