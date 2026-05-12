@@ -17,11 +17,32 @@ html {
     opacity: 0.9;
 }
 .site-footer {
-    padding: 60px 20px;
+    width: 100%;
+    min-height: 40vh; /* gives it presence like your hero */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
     text-align: center;
-    background: #0b1220; /* dark “scientific” tone */
+
+    /* SAME STRUCTURE AS HERO */
+    background:
+        linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(51, 51, 51, 1)),
+        url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWFjYmNlYW4wMXBsZGE5cmcxNnFsY2d0YTRkZ2NzbTcwY215NzR2ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WsdvDfxyBGhAN34e7B/giphy.gif');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     color: white;
-    border-top: 1px solid rgba(255,255,255,0.1);
+
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+
+    border-top: 2px solid rgba(255,255,255,0.1);
 }
 
 .footer-content {
