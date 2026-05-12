@@ -16,6 +16,24 @@ html {
     margin: 80px 10px 50px 0;
     opacity: 0.9;
 }
+.site-footer {
+    padding: 40px 20px;
+    text-align: center;
+    background: #0f172a; /* or match your theme */
+    color: white;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+.footer-gif {
+    width: 100px;
+    opacity: 0.9;
+    mix-blend-mode: screen;
+}
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
