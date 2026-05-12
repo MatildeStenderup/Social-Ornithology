@@ -524,7 +524,7 @@ randomizePhotos();
 
       steps.forEach((stepElement, index) => {
           const stop = document.querySelector(`.stop-${index + 1}`);
-          const title = stepElement.querySelector('h2');
+          const title = stepElement.querySelector('h2') || stepElement;
 
           if (stop && title) {
               const titleRect = title.getBoundingClientRect();
