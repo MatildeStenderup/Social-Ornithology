@@ -18,7 +18,7 @@ html {
 }
 .site-footer {
     width: 100%;
-    min-height: 40vh; /* gives it presence like your hero */
+    min-height: 100vh; /* gives it presence like your hero */
     
     display: flex;
     align-items: center;
