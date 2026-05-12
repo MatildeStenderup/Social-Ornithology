@@ -196,7 +196,9 @@ h2 {
     align-items: flex-start;
     min-height: 100vh;
     position: relative;
+    display: flex;
 }
+
 
 @media (min-width: 769px) {
     .step:nth-of-type(even) { flex-direction: row-reverse; }
@@ -215,12 +217,11 @@ h2 {
 .visual-block {
     flex: 0 0 55%;
     position: sticky;
-    top: 20vh;
-    height: 65vh;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    overflow: hidden;
+    top: 10vh;
+
+    height: 80vh;
+
+    align-self: flex-start;
 }
 
 .chart-placeholder {
