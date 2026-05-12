@@ -540,14 +540,14 @@ randomizePhotos();
   };
 
   if (window.ResizeObserver) {
-      const ro = new ResizeObserver(() => alignStopsWithTitles());
-     document.querySelectorAll('.step').forEach(step => {
-    ro.observe(step);
-});
-  }
+    const ro = new ResizeObserver(() => alignStopsWithTitles());
+    ro.observe(container); // ✅ IMPORTANT CHANGE
+}
 
- window.addEventListener('load', () => {
-    setTimeout(alignStopsWithTitles, 1000);
+window.addEventListener('load', () => {
+    requestAnimationFrame(() => {
+        requestAnimationFrame(alignStopsWithTitles);
+    });
 });
 
   let isScrolling = false;
