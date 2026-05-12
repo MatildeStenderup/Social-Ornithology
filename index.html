@@ -433,23 +433,24 @@ document.addEventListener('DOMContentLoaded', () => {
             options: ["images/person3_a.jpg", "images/person3_b.jpg", "images/person3_c.jpg", "images/person3_d.jpg"]
         }
     ];
+const randomizePhotos = () => {
+    const imgElements = document.querySelectorAll('.refresh-photo');
+    imgElements.forEach((img, index) => {
+        const person = photoMapping[index];
+        if (!person) return;
 
-    const randomizePhotos = () => {
-        const imgElements = document.querySelectorAll('.refresh-photo');
-        imgElements.forEach((img, index) => {
-            const person = photoMapping[index];
-            if (!person) return;
-            const storageKey = `last_img_${person.name}`;
-            let savedIndex = sessionStorage.getItem(storageKey);
-            if (savedIndex === null) {
-                savedIndex = Math.floor(Math.random() * person.options.length);
-                sessionStorage.setItem(storageKey, savedIndex);
-            }
-            img.src = person.options[savedIndex];
-            img.style.opacity = "1";
-        });
-    };
-    randomizePhotos();
+        // Generate a random index every time the function runs
+        const randomIndex = Math.floor(Math.random() * person.options.length);
+        
+        // Update the image source
+        img.src = person.options[randomIndex];
+        img.style.opacity = "1";
+        
+        // Optional: If you still want to track it in sessionStorage for other reasons
+        sessionStorage.setItem(`last_img_${person.name}`, randomIndex);
+    });
+};
+randomizePhotos();
 
     // --- 2. BIRD EXPLORER LOGIC ---
     const birdItems = document.querySelectorAll('#bird-selector-list li');
