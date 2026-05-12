@@ -541,7 +541,9 @@ randomizePhotos();
 
   if (window.ResizeObserver) {
       const ro = new ResizeObserver(() => alignStopsWithTitles());
-      ro.observe(document.body);
+     document.querySelectorAll('.step').forEach(step => {
+    ro.observe(step);
+});
   }
 
   window.addEventListener('load', () => {
