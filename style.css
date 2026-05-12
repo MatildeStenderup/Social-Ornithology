@@ -344,6 +344,7 @@ h2 {
     border: none;
     display: block;
     transition: all 0.3s ease; /* Smooth transition when expanding */
+    cursor: zoom-in;
 }
 
 .click-shield {
@@ -1362,4 +1363,5 @@ body.no-scroll {
     border: none;
     border-radius: 12px;
     background: white;
+    cursor: zoom-in;
 }
