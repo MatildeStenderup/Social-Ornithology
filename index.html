@@ -259,9 +259,7 @@ This trend establishes a baseline for comparing modern data density against hist
             to active discovery. <br>Together, these plots transition your narrative from a static analysis of "where" birds are to an interactive exploration of "how" the human community behaves as a collective sensor.<br><br>
         </p>
  </div>
-          <div class="chart-placeholder">
         <img scr="images/Pulse.png" class="pulse"></img>
-          </div>
     </section>
     <section class="step single-column-step" id="step6">
 
@@ -522,78 +520,81 @@ randomizePhotos();
     });
 
       // --- 3. SCROLL & PROGRESS LINE LOGIC ---
+  const lineFill = document.getElementById('line-fill');
   const container = document.querySelector('.story-container');
-    const lineFill = document.getElementById('line-fill');
-    const stops = document.querySelectorAll('.stop');
+  const stops = document.querySelectorAll('.stop');
 
-    const alignStopsWithTitles = () => {
-        if (!container) return;
+  const alignStopsWithTitles = () => {
+      if (document.body.classList.contains('no-scroll') || !container) return;
 
-        const steps = document.querySelectorAll('.step');
-        const containerRect = container.getBoundingClientRect();
+      const steps = document.querySelectorAll('.step');
+      const containerRect = container.getBoundingClientRect();
+      const containerHeight = container.offsetHeight;
 
-        const containerHeight = container.scrollHeight; // IMPORTANT FIX
+      steps.forEach((stepElement, index) => {
+          const stop = document.querySelector(`.stop-${index + 1}`);
+          const title = stepElement.querySelector('h2') || stepElement;
 
-        steps.forEach((step, index) => {
-            const stop = document.querySelector(`.stop-${index + 1}`);
-            const title = step.querySelector('h2');
+          if (stop && title) {
+              const titleRect = title.getBoundingClientRect();
 
-            if (!stop || !title) return;
+              const relativeTop = titleRect.top - containerRect.top;
 
-            const titleRect = title.getBoundingClientRect();
+              // ✅ convert to percentage instead of pixels
+              const percent = (relativeTop + (title.offsetHeight / 2)) / containerHeight * 100;
 
-            const relativeY =
-                (titleRect.top - containerRect.top) + window.scrollY;
+              stop.style.top = `${percent}%`;
+          }
+      });
+  };
 
-            let percent = (relativeY / containerHeight) * 100;
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => alignStopsWithTitles());
+    ro.observe(container); // ✅ IMPORTANT CHANGE
+}
 
-            // clamp to avoid bottom cutoff (fixes stop 10–11 issue)
-            percent = Math.min(98, Math.max(2, percent));
-
-            stop.style.top = percent + "%";
-        });
-    };
-
-    window.addEventListener('load', () => {
+window.addEventListener('load', () => {
+    requestAnimationFrame(() => {
         requestAnimationFrame(alignStopsWithTitles);
     });
+});
 
-    window.addEventListener('resize', alignStopsWithTitles);
+  let isScrolling = false;
 
+  window.addEventListener('scroll', () => {
+      if (document.body.classList.contains('no-scroll') || !container || !lineFill) return;
 
-    let ticking = false;
+      if (!isScrolling) {
+          window.requestAnimationFrame(() => {
 
-    window.addEventListener('scroll', () => {
-        if (!container || !lineFill) return;
+              const containerRect = container.getBoundingClientRect();
+              const containerHeight = container.offsetHeight;
 
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
+              const scrollPosition =
+                  (window.scrollY - container.offsetTop) + (window.innerHeight / 2);
 
-                const scrollTop = window.scrollY;
-                const containerTop = container.offsetTop;
+              let scrollPercent = (scrollPosition / containerHeight) * 100;
+              scrollPercent = Math.max(0, Math.min(scrollPercent, 100));
 
-                const progress =
-                    (scrollTop - containerTop + window.innerHeight / 2) /
-                    container.scrollHeight;
+              lineFill.style.height = scrollPercent + "%";
 
-                let percent = Math.min(100, Math.max(0, progress * 100));
+              stops.forEach(stop => {
+                  const stopPercent = parseFloat(stop.style.top);
+if (isNaN(stopPercent)) return;
 
-                lineFill.style.height = percent + "%";
+                  if (scrollPercent >= stopPercent) {
+                      stop.classList.add('active');
+                  } else {
+                      stop.classList.remove('active');
+                  }
+              });
 
-                stops.forEach(stop => {
-                    const stopTop = parseFloat(stop.style.top);
-                    if (isNaN(stopTop)) return;
+              isScrolling = false;
+          });
 
-                    stop.classList.toggle('active', percent >= stopTop);
-                });
-
-                ticking = false;
-            });
-
-            ticking = true;
-        }
-    }, { passive: true });
-
+          isScrolling = true;
+      }
+  }, { passive: true });
 
     // --- 4. SOCIAL SENSORS INTERACTIVE ---
     const sensorCards = document.querySelectorAll('.sensor-card');
